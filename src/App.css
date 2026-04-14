@@ -1,0 +1,14 @@
+.App {
+  height: 100dvh;
+  overflow-y: hidden;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  background-color: var(--darker);
+}
+
+.page {
+  overflow-y: auto;
+  margin: 10px 10px 10px 0;
+  border: 1px solid #333;
+  background-color: var(--dark);
+}

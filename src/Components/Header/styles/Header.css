@@ -1,0 +1,73 @@
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 40px;
+  padding: 20px;
+  /* align-items: center; */
+  /* justify-content: center; */
+  margin-bottom: 40px;
+  /* border-bottom: 1px solid #d4d4d4; */
+  aspect-ratio: 8;
+  height: 100%;
+  width: 100%;
+}
+
+.app-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-header-left-icon {
+  background-color: #a5948d21;
+  padding: 10px;
+  color: #ad8870;
+  /* border-radius: 0.5em; */
+  display: flex;
+  align-items: center;
+}
+
+.app-header-left-text {
+  font-size: 1.5em;
+  color: #a5948d21;
+}
+
+.app-header-left-text-1 {
+  font-weight: bold;
+  color: #ad8870;
+}
+
+.app-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+  flex: 1;
+}
+
+.app-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #ad8870;
+  border: 1px solid #333;
+  padding: 10px;
+  background-color: #ffffff10;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.header-import {
+  display: none;
+}
+
+.header-finance {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}

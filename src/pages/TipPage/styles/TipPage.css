@@ -1,0 +1,136 @@
+.tip-page-container {
+  /* padding: 20px; */
+  display: flex;
+  flex-direction: column;
+  /* height: 100%; */
+  /* border-radius: 1em; */
+  position: relative;
+  overflow: visible;
+}
+
+.tip-page-container-actions {
+  padding: 20px;
+  /* background-color: var(--primary-opacity); */
+  /* margin-bottom: 30px; */
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.tip-page-container-actions-btn {
+  padding: 8px 15px;
+  cursor: pointer;
+  background: none;
+  font-weight: 500;
+  background-color: #ffffff10;
+  border: 1px solid #333;
+  color: var(--light);
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.tip-page-container.--managing .tip-page-container-actions-btn.--manage {
+  border: 1px solid #dc3545;
+  color: #dc3545;
+  background-color: #dc354521;
+}
+
+.tip-page-container.--managing .tip-page-container-actions-btn.--reset {
+  border: 1px solid #dee039;
+  color: #dee039;
+  background-color: #dee03921;
+}
+
+.tip-page-container.--managing .tip-page-container-actions-btn.--delete {
+  border: 1px solid #dc3545;
+  color: #dc3545;
+  background-color: #dc354521;
+}
+
+.tip-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.tip-page-back-btn:hover {
+  background: #f5f5f5;
+}
+
+.tip-page-main-badge {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+}
+
+.tip-page-badge-label {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.tip-page-badge-value {
+  font-weight: bold;
+}
+
+.tip-page-badge-positive {
+  color: #28a745;
+}
+
+.tip-page-badge-negative {
+  color: #dc3545;
+}
+
+.tip-page-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+  align-items: flex-start;
+}
+
+.tip-page-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.tip-page-loading {
+  padding: 20px;
+  text-align: center;
+}
+
+.tip-page-footer {
+  /* margin-top: 30px; */
+  text-align: right;
+  border-top: 1px solid #333;
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-content: center;
+  background-color: var(--dark);
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.tip-page-footer-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* align-items: flex-end; */
+}
+
+.tip-page-badge-value {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+.tip-page-footer-info {
+  color: var(--light);
+  font-size: 0.8em;
+}

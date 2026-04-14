@@ -1,0 +1,30 @@
+.block-info {
+  aspect-ratio: 1;
+  background-color: var(--dark);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid #333;
+}
+
+.block-info-label {
+  color: var(--light);
+}
+
+.block-info.--won .block-info-value {
+  color: #2f9e8f;
+}
+
+.block-info.--lost .block-info-value {
+  color: #a02834;
+}
+
+.block-info.--pending {
+  color: #a79a2b;
+}
+
+.block-info-value {
+  font-size: 1.2em;
+  color: var(--primary);
+}

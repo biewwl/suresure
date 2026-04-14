@@ -1,0 +1,23 @@
+.bets-group-date {
+  color: var(--light);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bets-group-date-detail {
+  border-top: 1px dashed #333;
+  flex: 1;
+}
+
+.bets-group-date-recoil {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--darker);
+  border: 1px solid #333;
+  color: var(--light);
+  cursor: pointer;
+}

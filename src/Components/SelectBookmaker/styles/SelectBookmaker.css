@@ -1,0 +1,43 @@
+.select-bookmaker-container {
+  position: fixed;
+  width: 100dvw;
+  height: 100dvh;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.select-bookmaker {
+  background: #fff;
+  padding: 30px;
+  width: 80%;
+  height: 80%;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.bookmaker-avatar {
+  background: linear-gradient(#ffffff 50%, #fff 100%);
+  border-radius: 50%;
+}
+
+.select-bookmaker-option {
+  display: flex;
+  flex-direction: column;
+  /* background: linear-gradient(-30deg, #e4e4e4 20%, transparent 100%); */
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  transition: 0.5s;
+}
+
+.select-bookmaker-option:hover {
+  background: linear-gradient(-30deg, #d1d1d1 20%, transparent 100%);
+  cursor: pointer;
+  scale: 1.05;
+}

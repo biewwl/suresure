@@ -1,0 +1,12 @@
+.back-button {
+  background-color: #ffffff10;
+  border: 1px solid #333;
+  padding: 10px;
+  color: var(--light);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  gap: 10px;
+}

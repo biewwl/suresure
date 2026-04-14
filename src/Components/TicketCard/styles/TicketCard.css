@@ -1,0 +1,188 @@
+.ticket-card {
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.103);
+  display: flex;
+  flex-direction: column;
+  background-color: var(--darker);
+  gap: 10px;
+  /* border-radius: 0.75em; */
+  transition: 0.5s;
+  border: 1px solid #333;
+  overflow: visible;
+}
+
+.tip-page-container.--managing .ticket-card {
+  opacity: 0.2;
+  cursor: pointer;
+}
+
+.tip-page-container.--managing .ticket-card.--selected {
+  opacity: 1;
+}
+
+.ticket-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* justify-content: space-between; */
+  padding-right: 20px;
+  margin-bottom: 20px;
+}
+
+.ticket-card-header-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.6em;
+  color: var(--light);
+  /* align-items: flex-end; */
+}
+
+.ticket-card-header-signature {
+  /* font-family: signature, sans-serif;/ */
+}
+
+.ticket-card-bookmaker {
+  height: 50px;
+  /* border-radius: 0 0 0.5em 0; */
+  
+  /* Opcional: melhora a renderização de logos pequenos */
+  object-fit: contain;
+  border-right: 1px solid #333;
+  border-bottom: 1px solid #333;
+}
+
+.ticket-card.--freebet .ticket-card-info-box-value.--price {
+  color: var(--darker);
+  padding: 1px 3px;
+  background-color: #5dcc77;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.ticket-card.--freebet .ticket-card-info-box-value.--price svg {
+  margin-top: 3px;
+}
+
+.ticket-card-finance {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8em;
+  margin: 20px;
+  border-top: 1px solid #1d1d1d;
+  padding-top: 20px;
+  gap: 5px;
+}
+
+.ticket-card-info-box {
+  display: flex;
+  gap: 4px;
+}
+
+.ticket-card-info-box-text {
+  color: var(--light);
+}
+
+.ticket-card-info-box-value {
+  color: var(--primary);
+}
+
+.ticket-card-events {
+  padding: 15px;
+  flex: 1;
+}
+
+.ticket-card-section-title {
+  font-size: 0.85rem;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  margin: 0 0 10px 0;
+}
+
+.ticket-card-event-group {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  display: grid;
+  grid-template-columns: 60px auto;
+  gap: 10px;
+}
+
+.ticket-card-event-group:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.ticket-card-event-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ticket-card-event-header strong {
+  font-size: 0.95rem;
+  color: #333;
+  flex: 1;
+}
+
+.ticket-card-event-time {
+  color: #999;
+  font-size: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 3px;
+  align-items: center;
+}
+
+.ticket-card-selections {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ticket-card-selections p {
+  color: var(--lighter);
+}
+
+.ticket-card-selection {
+  display: flex;
+  gap: 4px;
+  font-size: 0.8em;
+  align-items: center;
+  padding-left: 5px;
+}
+
+.ticket-card-market {
+  color: var(--light);
+  font-weight: 500;
+}
+
+.ticket-card-selection-value {
+  color: var(--primary);
+  font-style: italic;
+}
+
+.ticket-card-footer {
+  padding: 15px;
+  text-align: center;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Status colors */
+.ticket-card-footer-won {
+  background-color: #11694723;
+  color: #5dcc77;
+}
+
+.ticket-card-footer-lost {
+  background-color: #b306142f;
+  color: #bd3240;
+}
+
+.ticket-card-footer-pending {
+  background-color: var(--primary-opacity);
+  color: rgb(209, 162, 119);
+}
