@@ -1,9 +1,14 @@
+.home {
+  padding-bottom: 100px;
+}
+
 .bets-group-date {
   color: var(--light);
   padding: 20px;
   display: flex;
   align-items: center;
   gap: 10px;
+  font-size: 0.8em;
 }
 
 .bets-group-date-detail {

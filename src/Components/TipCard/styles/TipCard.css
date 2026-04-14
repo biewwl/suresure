@@ -68,12 +68,12 @@
 }
 
 .tip-card-event-title {
-  font-size: 1.2em;
+  font-size: 1em;
   color: var(--lighter);
 }
 
 .tip-card-event-date {
-  font-size: 0.9em;
+  font-size: 0.6em;
   color: var(--primary);
   font-style: italic;
 }
@@ -101,9 +101,10 @@
 }
 
 .tip-card-bookmaker-logo {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border: 1px solid #333;
+  border-radius: 50%;
 }
 
 .tip-card-bookmaker-more {
@@ -115,7 +116,7 @@
 .tip-card-finance {
   list-style: none;
   color: var(--light);
-  font-size: 0.8em;
+  font-size: 0.7em;
 }
 
 .tip-card-link {

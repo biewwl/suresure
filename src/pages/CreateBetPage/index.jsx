@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { post } from "../../db/post";
 import { getAccounts } from "../../db/get";
 import "./styles/CreateBetPage.css";
 import SelectBookmaker from "../../Components/SelectBookmaker";
 import { getLogo } from "../../utils/getLogo";
+import { DataContext } from "../../context/DataContext";
 
 function CreateBetPage() {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ function CreateBetPage() {
   const [accounts, setAccounts] = useState([]);
   const [ticketBookmakerSelection, setTicketBookmakerSelection] =
     useState(null); // { detailIndex: bookmakerName }
+  const { refresh } = useContext(DataContext);
 
   const [formData, setFormData] = useState({
     details: [
@@ -203,6 +205,7 @@ function CreateBetPage() {
       alert("Erro ao salvar.");
     } finally {
       setLoading(false);
+      refresh();
     }
   };
 
@@ -217,7 +220,6 @@ function CreateBetPage() {
       setTicketBookmakerSelection(null);
       console.log(bookmakerName);
     }
-    
   };
 
   return (
@@ -251,7 +253,11 @@ function CreateBetPage() {
                     setTicketBookmakerSelection({ detailIndex: dIdx })
                   }
                 >
-                  {detail.bookmakerId ? <img src={getLogo(detail.bookmakerId).logo} alt="" /> : "Selecionar"}
+                  {detail.bookmakerId ? (
+                    <img src={getLogo(detail.bookmakerId).logo} alt="" />
+                  ) : (
+                    "Selecionar"
+                  )}
                 </button>
                 {ticketBookmakerSelection?.detailIndex === dIdx && (
                   <SelectBookmaker onSelect={handleBookmakerSelect} />

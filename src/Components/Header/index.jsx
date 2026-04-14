@@ -46,7 +46,11 @@ function Header() {
         </Link>
         <Link to="/create" className="app-nav-item">
           <Icon icon="famicons:ticket-outline" width="18" height="18" />
-          Criar Aposta
+          Criar
+        </Link>
+        <Link to="https://bettracker.com.br/calculator" target="_blank" className="app-nav-item">
+          <Icon icon="solar:calculator-linear" width="18" height="18" />
+          Calculadora
         </Link>
         <button className="app-nav-item" onClick={exportDB}>
           <Icon icon="solar:export-linear" width="18" height="18" />

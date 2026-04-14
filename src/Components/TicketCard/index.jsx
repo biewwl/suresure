@@ -1,4 +1,4 @@
-import React, { use, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./styles/TicketCard.css";
 import { formatCurrency, formatDate } from "../../utils/format";
 import { getLogo } from "../../utils/getLogo";

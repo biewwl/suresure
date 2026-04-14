@@ -12,3 +12,17 @@
   border: 1px solid #333;
   background-color: var(--dark);
 }
+
+@media screen and (max-width: 800px) {
+  .App {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .page {
+    overflow-y: visible;
+    margin: 0;
+    border: none;
+  }
+}

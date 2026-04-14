@@ -1,8 +1,6 @@
-import { Link } from "react-router-dom";
 import Tips from "../../Components/Tips";
 import "./styles/Home.css";
-import { useContext, useEffect, useState } from "react";
-import { get } from "../../db/get";
+import { useContext, useState } from "react";
 import {
   calculateTotalProfit,
   groupBetsByFurthestDate,
@@ -27,7 +25,7 @@ function Home() {
   };
 
   return (
-    <div className="page">
+    <div className="home page">
       {groupBets.map(([date, b], i) => {
         const isHide = recoilIds.some((rI) => rI === i);
 

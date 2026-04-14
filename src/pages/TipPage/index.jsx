@@ -16,7 +16,7 @@ function TipPage() {
   const [loading, setLoading] = useState(true);
   const [selectedDetailIds, setSelectedDetailIds] = useState([]);
   const [isManaging, setIsManaging] = useState(false);
-  const {refresh} = useContext(DataContext);
+  const { refresh } = useContext(DataContext);
 
   useEffect(() => {
     async function loadData() {
@@ -140,7 +140,9 @@ function TipPage() {
   };
 
   return (
-    <main className={`tip-page-container${isManaging ? " --managing" : ""} page`}>
+    <main
+      className={`tip-page-container${isManaging ? " --managing" : ""} page`}
+    >
       <section className="tip-page-container-actions">
         <BackButton />
         <button
@@ -240,20 +242,23 @@ function TipPage() {
       <div className="tip-page-footer">
         <div className="tip-page-footer-info">
           <span>
-            <span>Total Apostado:</span> {formatCurrency(bet.totalStake)}
+            <span>Total Apostado:</span>{" "}
+            <span className="tip-page-footer-info-value">{formatCurrency(bet.totalStake)}</span>
           </span>
           <span>
-            <span>ROI:</span> {bet.formattedROI}
+            <span>ROI:</span> <span className="tip-page-footer-info-value">{bet.formattedROI}</span>
           </span>
           <span>
             <span>Retorno Esperado:</span>{" "}
-            {formatCurrency(bet.details[0].potentialReturn || 0)}
+            <span className="tip-page-footer-info-value">{formatCurrency(bet.details[0].potentialReturn || 0)}</span>
           </span>
           <span>
             <span>Lucro Esperado:</span>{" "}
-            {formatCurrency(
-              (bet.details[0].potentialReturn || 0) - bet.totalStake,
-            )}
+            <span className="tip-page-footer-info-value">
+              {formatCurrency(
+                (bet.details[0].potentialReturn || 0) - bet.totalStake,
+              )}
+            </span>
           </span>
         </div>
         <span
