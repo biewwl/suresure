@@ -1,0 +1,40 @@
+{
+  "files": {
+    "main.css": "/suresure/static/css/main.d0bb46de.css",
+    "main.js": "/suresure/static/js/main.4907c7a2.js",
+    "static/media/betao.jpg": "/suresure/static/media/betao.f2404d2e40ae05ea5013.jpg",
+    "static/media/Signature.otf": "/suresure/static/media/Signature.ae71cfbc5e76d2c194b2.otf",
+    "static/media/bolsadeaposta.png": "/suresure/static/media/bolsadeaposta.ef0d28ad3255efc7fa02.png",
+    "static/media/betnacional.png": "/suresure/static/media/betnacional.763950234f70559eb2fa.png",
+    "static/media/ProductSans-Regular.ttf": "/suresure/static/media/ProductSans-Regular.69e1c9bd4ab594afc59a.ttf",
+    "static/media/luvabet.png": "/suresure/static/media/luvabet.f7acb3d3cee04d3ba22e.png",
+    "static/media/lotogreen.jpg": "/suresure/static/media/lotogreen.75794def506a24817cb4.jpg",
+    "static/media/cassinobet.png": "/suresure/static/media/cassinobet.bd722bede5337384a948.png",
+    "static/media/jogodeouro.png": "/suresure/static/media/jogodeouro.2c7750f2d8c2db830bbc.png",
+    "static/media/mrjackbet.jpg": "/suresure/static/media/mrjackbet.bd355a5e7630402f7c74.jpg",
+    "static/media/f12bet.jpg": "/suresure/static/media/f12bet.2507650f4b2f8328fe48.jpg",
+    "static/media/betfair.png": "/suresure/static/media/betfair.8df1094ea8308de54ffd.png",
+    "static/media/goldebet.png": "/suresure/static/media/goldebet.803421f63a320aabcd4e.png",
+    "static/media/betdasorte.png": "/suresure/static/media/betdasorte.594adbb43d9d1baa2580.png",
+    "static/media/betmgm.png": "/suresure/static/media/betmgm.8f3f9356eba2c4a5790c.png",
+    "static/media/fulltbet.jpg": "/suresure/static/media/fulltbet.b6c5f9ced01b59c61d63.jpg",
+    "static/media/vaidebet.jpeg": "/suresure/static/media/vaidebet.e38e1a7a393be852ee0f.jpeg",
+    "static/media/lancedasorte.webp": "/suresure/static/media/lancedasorte.75e72ad245d60ada909c.webp",
+    "static/media/blaze.png": "/suresure/static/media/blaze.fabc740f9d2ca1901146.png",
+    "static/media/apostaganha.png": "/suresure/static/media/apostaganha.cd2e7bc040f19db120d6.png",
+    "static/media/bet7k.png": "/suresure/static/media/bet7k.97439a3bef682852d9c3.png",
+    "static/media/sportingbet.png": "/suresure/static/media/sportingbet.d385abfdc3123496489f.png",
+    "static/media/qgbet.png": "/suresure/static/media/qgbet.7fc06ab53d3f38251feb.png",
+    "static/media/bateubet.webp": "/suresure/static/media/bateubet.7c7d472cfaae878e746b.webp",
+    "static/media/betfairexchange.webp": "/suresure/static/media/betfairexchange.029b3ade3b7a1a73e251.webp",
+    "static/media/betano.webp": "/suresure/static/media/betano.4912fe5224d47ab83b02.webp",
+    "static/media/estrelabet.webp": "/suresure/static/media/estrelabet.6d18f655c5ee5eeedaee.webp",
+    "index.html": "/suresure/index.html",
+    "main.d0bb46de.css.map": "/suresure/static/css/main.d0bb46de.css.map",
+    "main.4907c7a2.js.map": "/suresure/static/js/main.4907c7a2.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d0bb46de.css",
+    "static/js/main.4907c7a2.js"
+  ]
+}
