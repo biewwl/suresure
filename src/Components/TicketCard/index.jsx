@@ -3,7 +3,7 @@ import "./styles/TicketCard.css";
 import { formatCurrency, formatDate } from "../../utils/format";
 import { getLogo } from "../../utils/getLogo";
 import { get } from "../../db/get";
-import { Icon } from "@iconify-icon/react";
+import { LuGift as Gift } from "react-icons/lu";
 
 function TicketCard({ detail, onClick, c }) {
   // Agrupar eventos by event + hora
@@ -95,9 +95,7 @@ function TicketCard({ detail, onClick, c }) {
         <div className="ticket-card-info-box">
           <span className="ticket-card-info-box-text">Investimento:</span>
           <span className="ticket-card-info-box-value --price">
-            {detail.freebet && (
-                <Icon icon="mage:gift" width="14" height="14" />
-            )}
+            {detail.freebet && <Gift size={14} />}
             {formatCurrency(detail.price)}
           </span>
         </div>

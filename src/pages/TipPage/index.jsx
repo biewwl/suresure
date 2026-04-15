@@ -6,7 +6,7 @@ import { remove } from "../../db/delete";
 import TicketCard from "../../Components/TicketCard";
 import "./styles/TipPage.css";
 import { formatCurrency } from "../../utils/format";
-import { Icon } from "@iconify-icon/react";
+import { LuSettings as Settings, LuX as X, LuPencil as Edit2, LuRotateCcw as RotateCcw, LuTrash2 as Trash2 } from "react-icons/lu";
 import BackButton from "../../Components/BackButton";
 import { DataContext } from "../../context/DataContext";
 
@@ -170,11 +170,11 @@ function TipPage() {
         >
           {!isManaging ? (
             <>
-              <Icon icon="ri:settings-line" width="16" height="16" />
+              <Settings size={16} />
               Entrar no Modo de Gerenciamento
             </>
           ) : (
-            <Icon icon="line-md:close" width="16" height="16" />
+            <X size={16} />
           )}
         </button>
         {!isManaging && (
@@ -182,7 +182,7 @@ function TipPage() {
             className="tip-page-container-actions-btn"
             onClick={() => navigate(`/edit/${id}`)}
           >
-            <Icon icon="ri:edit-line" width="16" height="16" />
+            <Edit2 size={16} />
             Editar
           </button>
         )}
@@ -238,20 +238,10 @@ function TipPage() {
               className="tip-page-container-actions-btn --reset"
               onClick={handleResetStatus}
             >
-              <Icon
-                icon="streamline:line-arrow-rotate-left-1-remix"
-                width="15"
-                height="15"
-              />{" "}
-              Redefinir
+              <RotateCcw size={15} /> Redefinir
             </button>
             <button className="tip-page-container-actions-btn --delete" onClick={handleDeleteBet}>
-              <Icon
-                icon="solar:trash-bin-minimalistic-2-linear"
-                width="16"
-                height="16"
-              />{" "}
-              Deletar Operação
+              <Trash2 size={16} /> Deletar Operação
             </button>
           </>
         )}

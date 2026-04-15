@@ -6,7 +6,7 @@ import "./styles/CreateBetPage.css";
 import SelectBookmaker from "../../Components/SelectBookmaker";
 import { getLogo } from "../../utils/getLogo";
 import { DataContext } from "../../context/DataContext";
-import { Icon } from "@iconify-icon/react";
+import { LuPlus as Plus, LuGift as Gift, LuX as X } from "react-icons/lu";
 
 function CreateBetPage() {
   const navigate = useNavigate();
@@ -311,7 +311,7 @@ function CreateBetPage() {
                         className="create-bet-page-tickets-ticket-header-bookmaker"
                       />
                     ) : (
-                      <Icon icon="ic:sharp-add" width="24" height="24" />
+                      <Plus size={24} />
                     )}
                   </button>
                   {ticketBookmakerSelection?.detailIndex === dIdx && (
@@ -328,7 +328,7 @@ function CreateBetPage() {
                       }
                       className="create-bet-page-tickets-ticket-header-freebet-input"
                     />
-                    <Icon icon="mage:gift" width="14" height="14" /> Freebet
+                    <Gift size={14} /> Freebet
                   </label>
                   {formData.details.length > 1 && (
                     <button
@@ -337,7 +337,7 @@ function CreateBetPage() {
                       className="create-bet-page-tickets-ticket-header-remove"
                       title="Remover bilhete"
                     >
-                      <Icon icon="material-symbols:close" width="18" height="18" />
+                      <X size={18} />
                     </button>
                   )}
                 </header>
@@ -491,7 +491,7 @@ function CreateBetPage() {
                             className="btn-remove-event ticket-button"
                             title="Apagar este evento"
                           >
-                            <Icon icon="material-symbols:close" width="18" height="18"  className="btn-remove-event-icon" />
+                            <X size={18} className="btn-remove-event-icon" />
                           </button>
                         )}
                       </div>

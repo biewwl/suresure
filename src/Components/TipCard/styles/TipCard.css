@@ -117,6 +117,9 @@
   list-style: none;
   color: var(--light);
   font-size: 0.7em;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .tip-card-link {

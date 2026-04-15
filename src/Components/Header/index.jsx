@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./styles/Header.css";
-import { Icon } from "@iconify-icon/react";
+import { LuFlame as Star, LuHouse as Home, LuUser as User, LuTicket as Ticket, LuCalculator as Calculator, LuUpload as Upload, LuDownload as Download, LuSettings as Settings, LuX as X, LuPencil as Edit2 } from "react-icons/lu";
 import { formatCurrency } from "../../utils/format";
 import { useContext } from "react";
 import { DataContext } from "../../context/DataContext";
@@ -26,39 +26,34 @@ function Header() {
   return (
     <header className="app-header">
       <div className="app-header-left">
-        <Icon
-          icon="game-icons:pentacle"
-          width="30"
-          height="30"
-          className="app-header-left-icon"
-        />
+        <Star size={30} className="app-header-left-icon" />
         <span className="app-header-left-text">
           <span className="app-header-left-text-1">Sure</span>devil
         </span>
       </div>
       <nav className="app-nav">
         <Link to="/" className="app-nav-item">
-          <Icon icon="heroicons:home" width="18" height="18" /> Home
+          <Home size={18} /> Home
         </Link>
         <Link to="/accounts" className="app-nav-item">
-          <Icon icon="lucide:user" width="18" height="18" />
+          <User size={18} />
           Accounts
         </Link>
         <Link to="/create" className="app-nav-item">
-          <Icon icon="famicons:ticket-outline" width="18" height="18" />
+          <Ticket size={18} />
           Criar
         </Link>
         <Link to="https://bettracker.com.br/calculator" target="_blank" className="app-nav-item">
-          <Icon icon="solar:calculator-linear" width="18" height="18" />
+          <Calculator size={18} />
           Calculadora
         </Link>
         <button className="app-nav-item" onClick={exportDB}>
-          <Icon icon="solar:export-linear" width="18" height="18" />
+          <Upload size={18} />
           Exportar
         </button>
         <label className="app-nav-item" htmlFor="import">
           <input type="file" name="" id="import" className="header-import" accept=".json" onChange={handleFileUpload} />
-          <Icon icon="solar:import-linear" width="18" height="18" />
+          <Download size={18} />
           Importar
         </label>
       </nav>

@@ -1,28 +1,28 @@
 .App {
-  height: 100dvh;
-  overflow-y: hidden;
-  display: grid;
-  grid-template-columns: 400px 1fr;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   background-color: var(--darker);
 }
 
 .page {
-  overflow-y: auto;
-  margin: 10px 10px 10px 0;
-  border: 1px solid #333;
+  flex: 1;
+  min-height: 0;
   background-color: var(--dark);
+  touch-action: pan-y;
+}
+
+@media screen and (min-width: 800px) {
+  .App {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+  }
 }
 
 @media screen and (max-width: 800px) {
   .App {
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
-  }
-
-  .page {
-    overflow-y: visible;
-    margin: 0;
-    border: none;
   }
 }
+

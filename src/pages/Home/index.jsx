@@ -1,31 +1,34 @@
 import Tips from "../../Components/Tips";
 import "./styles/Home.css";
-import { useContext, useState } from "react";
+import { useContext, useState, useMemo, useCallback } from "react";
 import {
   calculateTotalProfit,
   groupBetsByFurthestDate,
 } from "../../utils/sort";
 import { formatCurrency, formatDateExtenso } from "../../utils/format";
-import { Icon } from "@iconify-icon/react";
+import { LuChevronUp as ChevronUp, LuChevronDown as ChevronDown } from "react-icons/lu";
 import { DataContext } from "../../context/DataContext";
 
 function Home() {
   const [recoilIds, setRecoilIds] = useState([]);
   const { bets, loading } = useContext(DataContext);
 
+  const groupBets = useMemo(() => groupBetsByFurthestDate(bets), [bets]);
+
+  const handleRecoil = useCallback((id) => {
+    setRecoilIds((prev) => {
+      if (prev.some((rI) => rI === id)) {
+        return prev.filter((rI) => rI !== id);
+      }
+      return [...prev, id];
+    });
+  }, []);
+
   if (loading) return <p>Carregando operações...</p>;
-
-  const groupBets = groupBetsByFurthestDate(bets);
-
-  const handleRecoil = (id) => {
-    if (recoilIds.some((rI) => rI === id)) {
-      return setRecoilIds(recoilIds.filter((rI) => rI !== id));
-    }
-    return setRecoilIds([...recoilIds, id]);
-  };
 
   return (
     <div className="home page">
+
       {groupBets.map(([date, b], i) => {
         const isHide = recoilIds.some((rI) => rI === i);
 
@@ -37,21 +40,9 @@ function Home() {
               <button
                 onClick={() => handleRecoil(i)}
                 className="bets-group-date-recoil"
+                aria-label={isHide ? "Mostrar apostas" : "Ocultar apostas"}
               >
-                {!isHide && (
-                  <Icon
-                    icon="iconamoon:arrow-up-2-light"
-                    width="24"
-                    height="24"
-                  />
-                )}
-                {isHide && (
-                  <Icon
-                    icon="iconamoon:arrow-down-2-light"
-                    width="24"
-                    height="24"
-                  />
-                )}
+                {isHide ? <ChevronDown size={24} /> : <ChevronUp size={24} />}
               </button>
             </span>
             {!isHide && <Tips bets={b} />}

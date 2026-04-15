@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState, useMemo } from "react";
 import { get } from "../db/get";
 import { calculateTotalProfit, calculateTotalSpend, groupBetsByFurthestDate } from "../utils/sort";
 // import { formatResults } from "../utils/manageData";
@@ -30,9 +30,9 @@ export const DataProvider = ({ children }) => {
     setRefresh(!refresh);
   }
 
-  const profit = calculateTotalProfit(bets);
-  const investment = calculateTotalSpend(bets);
-  const daysCount = groupBetsByFurthestDate(bets).length;
+  const profit = useMemo(() => calculateTotalProfit(bets), [bets]);
+  const investment = useMemo(() => calculateTotalSpend(bets), [bets]);
+  const daysCount = useMemo(() => groupBetsByFurthestDate(bets).length, [bets]);
 
   return (
     <DataContext.Provider value={{ bets, loading, refresh: refreshData, profit, investment, daysCount }}>
