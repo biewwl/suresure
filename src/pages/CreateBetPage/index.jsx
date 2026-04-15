@@ -6,6 +6,7 @@ import "./styles/CreateBetPage.css";
 import SelectBookmaker from "../../Components/SelectBookmaker";
 import { getLogo } from "../../utils/getLogo";
 import { DataContext } from "../../context/DataContext";
+import { Icon } from "@iconify-icon/react";
 
 function CreateBetPage() {
   const navigate = useNavigate();
@@ -19,9 +20,9 @@ function CreateBetPage() {
     details: [
       {
         bookmakerId: "",
-        price: "",
+        price: "0,00",
         accountId: "",
-        odd: "",
+        odd: "0,00",
         freebet: false,
         events: [
           {
@@ -39,7 +40,56 @@ function CreateBetPage() {
 
   // --- HANDLERS ---
 
+  const formatCurrencyInput = (rawValue, detailIndex, field) => {
+    // 1. Limpa os valores
+    const cleanValue = rawValue.replace(/\D/g, "");
+    const cleanCurrentValue = (
+      formData.details[detailIndex][field] || "0,00"
+    ).replace(/\D/g, "");
+
+    let finalDigits = "";
+
+    // Caso 1: Usuário apagou (Backspace)
+    if (cleanValue.length < cleanCurrentValue.length) {
+      finalDigits = cleanCurrentValue.slice(0, -1);
+    }
+    // Caso 2: Usuário digitou algo
+    else {
+      // Pegamos o caractere que foi adicionado.
+      // Em vez de confiar na posição do cursor, vamos ver qual dígito
+      // apareceu de novo no cleanValue comparado ao cleanCurrentValue.
+
+      let addedDigit = "";
+
+      // Se o valor mudou, o novo dígito é aquele que entrou na string.
+      // Para ser fiel à sua ideia de "ignorar o cursor", pegamos o dígito
+      // que está na posição onde as strings começam a diferir.
+      for (let i = 0; i < cleanValue.length; i++) {
+        if (cleanValue[i] !== cleanCurrentValue[i]) {
+          addedDigit = cleanValue[i];
+          break;
+        }
+      }
+
+      // Se não achou no meio (digitou no fim), pega o último
+      if (!addedDigit) addedDigit = cleanValue.slice(-1);
+
+      // A MÁGICA: Independente de onde o addedDigit foi encontrado,
+      // nós o concatenamos ao FINAL do valor antigo.
+      finalDigits = cleanCurrentValue + addedDigit;
+    }
+
+    // A formatação continua a mesma
+    return new Intl.NumberFormat("pt-BR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(parseFloat(finalDigits || 0) / 100);
+  };
+
   const updateField = (detailIndex, eventIndex, field, value) => {
+    if (field === "price" || field === "odd") {
+      value = formatCurrencyInput(value, detailIndex, field);
+    }
     const newData = { ...formData };
     if (eventIndex !== null) {
       newData.details[detailIndex].events[eventIndex][field] = value;
@@ -218,76 +268,101 @@ function CreateBetPage() {
         bookmakerName,
       );
       setTicketBookmakerSelection(null);
-      console.log(bookmakerName);
     }
   };
 
+  console.log(formData);
+
   return (
     <main className="create-bet-page page">
-      <h1>Nova Operação</h1>
+      {/* <h1>Nova Operação</h1>/ */}
 
-      <form onSubmit={handleSubmit}>
-        {formData.details.map((detail, dIdx) => (
-          <section key={dIdx} className="create-bet-page-section">
-            <header>
-              <h2>Bilhete #{dIdx + 1}</h2>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={detail.freebet}
-                  onChange={(e) =>
-                    updateField(dIdx, null, "freebet", e.target.checked)
-                  }
-                />{" "}
-                Freebet?
-              </label>
-            </header>
+      <form onSubmit={handleSubmit} className="create-bet-page-form">
+        <div className="create-bet-page-tickets">
+          {formData.details.map((detail, dIdx) => {
+            const classFreebet = detail.freebet ? " --freebet" : "";
 
-            {/* FINANCEIRO */}
-            <div className="create-bet-page-finance">
-              <div>
-                <label>Casa de Aposta</label>
-                <button
-                  type="button"
-                  onClick={() =>
-                    setTicketBookmakerSelection({ detailIndex: dIdx })
-                  }
-                >
-                  {detail.bookmakerId ? (
-                    <img src={getLogo(detail.bookmakerId).logo} alt="" />
-                  ) : (
-                    "Selecionar"
+            return (
+              <section key={dIdx} className="create-bet-page-tickets-ticket">
+                <header className="create-bet-page-tickets-ticket-header">
+                  <button
+                    type="button"
+                    className="create-bet-page-tickets-ticket-header-bookmaker"
+                    onClick={() =>
+                      setTicketBookmakerSelection({ detailIndex: dIdx })
+                    }
+                  >
+                    {detail.bookmakerId ? (
+                      <img
+                        src={getLogo(detail.bookmakerId).logo}
+                        alt=""
+                        className="create-bet-page-tickets-ticket-header-bookmaker"
+                      />
+                    ) : (
+                      <Icon icon="ic:sharp-add" width="24" height="24" />
+                    )}
+                  </button>
+                  {ticketBookmakerSelection?.detailIndex === dIdx && (
+                    <SelectBookmaker onSelect={handleBookmakerSelect} />
                   )}
-                </button>
-                {ticketBookmakerSelection?.detailIndex === dIdx && (
-                  <SelectBookmaker onSelect={handleBookmakerSelect} />
-                )}
+                  <label
+                    className={`create-bet-page-tickets-ticket-header-freebet${classFreebet}`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={detail.freebet}
+                      onChange={(e) =>
+                        updateField(dIdx, null, "freebet", e.target.checked)
+                      }
+                      className="create-bet-page-tickets-ticket-header-freebet-input"
+                    />
+                    <Icon icon="mage:gift" width="14" height="14" /> Freebet
+                  </label>
+                </header>
 
-                {/* <input placeholder="Ex: Bet365" value={detail.bookmakerId} onChange={(e) => updateField(dIdx, null, 'bookmakerId', e.target.value)} required /> */}
-              </div>
-              <div>
-                <label>Valor (R$)</label>
-                <input
-                  type="number"
-                  step="0.01"
-                  placeholder="0.00"
-                  value={detail.price}
-                  onChange={(e) =>
-                    updateField(dIdx, null, "price", e.target.value)
-                  }
-                  required
-                />
-              </div>
-              <div>
-                <label>Conta</label>
+                {/* FINANCEIRO */}
+                <div className="create-bet-page-finance">
+                  <div className="create-bet-page-finance-inputs">
+                    <input
+                      type="tel"
+                      placeholder="0.00"
+                      value={detail.price}
+                      onChange={(e) =>
+                        updateField(dIdx, null, "price", e.target.value)
+                      }
+                      required
+                      className="create-bet-page-finance-inputs-input"
+                    />
+                    <span className="create-bet-page-finance-inputs-label">
+                      Valor
+                    </span>
+                  </div>
+                  <div className="create-bet-page-finance-inputs">
+                    <input
+                      type="tel"
+                      placeholder="1.00"
+                      value={detail.odd}
+                      onChange={(e) =>
+                        updateField(dIdx, null, "odd", e.target.value)
+                      }
+                      required
+                      className="create-bet-page-finance-inputs-input"
+                    />
+                    <span className="create-bet-page-finance-inputs-label">
+                      Odd Total
+                    </span>
+                  </div>
+                </div>
                 <select
                   value={detail.accountId}
                   onChange={(e) =>
                     updateField(dIdx, null, "accountId", e.target.value)
                   }
                   required={accounts.length > 0}
+                  className="account-input"
+                  id="account"
                 >
-                  <option value="">
+                  <option value="" hidden>
                     {accounts.length
                       ? "Selecione uma conta"
                       : "Nenhuma conta disponível"}
@@ -298,122 +373,140 @@ function CreateBetPage() {
                     </option>
                   ))}
                 </select>
-              </div>
-              <div>
-                <label>Odd Total</label>
-                <input
-                  type="number"
-                  step="0.001"
-                  placeholder="1.00"
-                  value={detail.odd}
-                  onChange={(e) =>
-                    updateField(dIdx, null, "odd", e.target.value)
+                {/* EVENTOS E SELEÇÕES */}
+
+                {detail.events.map((ev, eIdx) => {
+                  // Se for uma seleção extra, não renderizamos o cabeçalho do evento de novo
+                  if (ev.isExtraSelection) return null;
+                  // Filtramos as seleções que pertencem a este evento específico (os próximos itens no array que são extras)
+                  const extraSelections = [];
+                  for (let i = eIdx + 1; i < detail.events.length; i++) {
+                    if (detail.events[i].isExtraSelection) {
+                      extraSelections.push({
+                        ...detail.events[i],
+                        originalIndex: i,
+                      });
+                    } else {
+                      break;
+                    }
                   }
-                  required
-                />
-              </div>
-            </div>
 
-            {/* EVENTOS E SELEÇÕES */}
-            <div className="create-bet-page-events">
-              {detail.events.map((ev, eIdx) => {
-                // Se for uma seleção extra, não renderizamos o cabeçalho do evento de novo
-                if (ev.isExtraSelection) return null;
+                  const eventClass = eIdx > 0 ? " --aditional" : "";
 
-                // Filtramos as seleções que pertencem a este evento específico (os próximos itens no array que são extras)
-                const extraSelections = [];
-                for (let i = eIdx + 1; i < detail.events.length; i++) {
-                  if (detail.events[i].isExtraSelection) {
-                    extraSelections.push({
-                      ...detail.events[i],
-                      originalIndex: i,
-                    });
-                  } else {
-                    break;
-                  }
-                }
-
-                return (
-                  <div key={eIdx} className="create-bet-page-event">
-                    {/* CABEÇALHO DO EVENTO */}
-                    <div className="create-bet-page-event-header">
-                      <div>
-                        <label>EVENTO</label>
-                        <input
-                          value={ev.event}
-                          onChange={(e) =>
-                            updateField(dIdx, eIdx, "event", e.target.value)
-                          }
-                          placeholder="Time A x Time B"
-                          required
-                        />
-                      </div>
-                      <div>
-                        <label>DATA</label>
-                        <input
-                          type="date"
-                          value={ev.date}
-                          onChange={(e) =>
-                            updateField(dIdx, eIdx, "date", e.target.value)
-                          }
-                        />
-                      </div>
-                      <div>
-                        <label>HORA</label>
-                        <input
-                          type="time"
-                          value={ev.hour}
-                          onChange={(e) =>
-                            updateField(dIdx, eIdx, "hour", e.target.value)
-                          }
-                        />
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => addSelectionSameEvent(dIdx, eIdx)}
-                        className="btn-add-selection"
-                        title="Adicionar seleção para este evento"
-                      >
-                        + Seleção
-                      </button>
-                      {eIdx > 0 && (
-                        <button
-                          type="button"
-                          onClick={() => removeEventGroup(dIdx, eIdx)}
-                          className="btn-remove-event"
-                          title="Apagar este evento"
-                        >
-                          ✕ Evento
-                        </button>
-                      )}
-                    </div>
-
-                    {/* LISTA DE SELEÇÕES (O primeiro item + as extras) */}
-                    <ol className="create-bet-page-event-list">
-                      {/* Primeira Seleção */}
-                      <li>
-                        <div className="create-bet-page-selection-row">
+                  return (
+                    <div
+                      key={eIdx}
+                      className={`create-bet-page-event${eventClass}`}
+                    >
+                      {/* CABEÇALHO DO EVENTO */}
+                      <div className="create-bet-page-event-header">
+                        <div className="input-group">
+                          <label htmlFor="event" className="input-group-label">
+                            Evento:
+                          </label>
                           <input
-                            placeholder="Mercado (ex: Gols)"
-                            value={ev.market}
+                            className="input-group-input"
+                            value={ev.event}
                             onChange={(e) =>
-                              updateField(dIdx, eIdx, "market", e.target.value)
+                              updateField(dIdx, eIdx, "event", e.target.value)
                             }
+                            placeholder="Time A x Time B"
+                            id="event"
                             required
                           />
-                          <input
-                            placeholder="Seleção (ex: +2.5)"
-                            value={ev.selection}
-                            onChange={(e) =>
-                              updateField(
-                                dIdx,
-                                eIdx,
-                                "selection",
-                                e.target.value,
-                              )
-                            }
-                            required
-                          />
+                        </div>
+                        <div className="ticket-event-date-hour">
+                          <div className="input-group">
+                            <label htmlFor="date" className="input-group-label">
+                              Data
+                            </label>
+                            <input
+                              type="date"
+                              value={ev.date}
+                              onChange={(e) =>
+                                updateField(dIdx, eIdx, "date", e.target.value)
+                              }
+                              className="input-group-input"
+                              id="date"
+                            />
+                          </div>
+                          <div className="input-group">
+                            <label htmlFor="hour" className="input-group-label">
+                              Horário
+                            </label>
+                            <input
+                              type="time"
+                              value={ev.hour}
+                              onChange={(e) =>
+                                updateField(dIdx, eIdx, "hour", e.target.value)
+                              }
+                              className="input-group-input"
+                              id="hour"
+                            />
+                          </div>
+                        </div>
+                        <div className="action-add-new">
+                          <button
+                            type="button"
+                            onClick={() => addSelectionSameEvent(dIdx, eIdx)}
+                            className="btn-add-selection ticket-button"
+                            title="Adicionar seleção para este evento"
+                          >
+                            Adicionar Mercado
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => addEvent(dIdx)}
+                            className="btn-add-event ticket-button"
+                          >
+                            + Adicionar Evento
+                          </button>
+                        </div>
+                        {eIdx > 0 && (
+                          <button
+                            type="button"
+                            onClick={() => removeEventGroup(dIdx, eIdx)}
+                            className="btn-remove-event ticket-button"
+                            title="Apagar este evento"
+                          >
+                            <Icon icon="material-symbols:close" width="18" height="18"  className="btn-remove-event-icon" />
+                          </button>
+                        )}
+                      </div>
+                      {/* LISTA DE SELEÇÕES (O primeiro item + as extras) */}
+                      <ol className="create-bet-page-event-list">
+                        {/* Primeira Seleção */}
+                        <li className="ticket-selection">
+                          <div className="create-bet-page-selection-row">
+                            <input
+                              placeholder="Mercado (ex: Gols)"
+                              value={ev.market}
+                              onChange={(e) =>
+                                updateField(
+                                  dIdx,
+                                  eIdx,
+                                  "market",
+                                  e.target.value,
+                                )
+                              }
+                              className="input-group-input"
+                              required
+                            />
+                            <input
+                              placeholder="Seleção (ex: +2.5)"
+                              value={ev.selection}
+                              onChange={(e) =>
+                                updateField(
+                                  dIdx,
+                                  eIdx,
+                                  "selection",
+                                  e.target.value,
+                                )
+                              }
+                              className="input-group-input"
+                              required
+                            />
+                          </div>
                           <button
                             type="button"
                             onClick={() => repeatMarketToNewTicket(dIdx, eIdx)}
@@ -422,85 +515,83 @@ function CreateBetPage() {
                           >
                             Repetir mercado em novo bilhete
                           </button>
-                        </div>
-                      </li>
-
-                      {/* Seleções Extras */}
-                      {extraSelections.map((extra, sIdx) => (
-                        <li key={extra.originalIndex}>
-                          <div className="create-bet-page-selection-row">
-                            <input
-                              placeholder="Mercado"
-                              value={extra.market}
-                              onChange={(e) =>
-                                updateField(
-                                  dIdx,
-                                  extra.originalIndex,
-                                  "market",
-                                  e.target.value,
-                                )
-                              }
-                              required
-                            />
-                            <input
-                              placeholder="Seleção"
-                              value={extra.selection}
-                              onChange={(e) =>
-                                updateField(
-                                  dIdx,
-                                  extra.originalIndex,
-                                  "selection",
-                                  e.target.value,
-                                )
-                              }
-                              required
-                            />
-                            <button
-                              type="button"
-                              onClick={() =>
-                                repeatMarketToNewTicket(
-                                  dIdx,
-                                  extra.originalIndex,
-                                )
-                              }
-                              className="btn-repeat-market"
-                              title="Repetir mercado em novo bilhete"
-                            >
-                              Repetir mercado em novo bilhete
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() =>
-                                removeEvent(dIdx, extra.originalIndex)
-                              }
-                              className="btn-remove-selection"
-                            >
-                              ✕
-                            </button>
-                          </div>
                         </li>
-                      ))}
-                    </ol>
-                  </div>
-                );
-              })}
-            </div>
-
-            <button
-              type="button"
-              onClick={() => addEvent(dIdx)}
-              className="btn-add-event"
-            >
-              + Adicionar Novo Evento Diferente
-            </button>
-          </section>
-        ))}
+                        {/* Seleções Extras */}
+                        {extraSelections.map((extra, sIdx) => (
+                          <li
+                            key={extra.originalIndex}
+                            className="ticket-events ticket-selection"
+                          >
+                            <div className="create-bet-page-selection-row">
+                              <input
+                                placeholder="Mercado"
+                                value={extra.market}
+                                onChange={(e) =>
+                                  updateField(
+                                    dIdx,
+                                    extra.originalIndex,
+                                    "market",
+                                    e.target.value,
+                                  )
+                                }
+                                required
+                                className="input-group-input"
+                              />
+                              <input
+                                placeholder="Seleção"
+                                value={extra.selection}
+                                onChange={(e) =>
+                                  updateField(
+                                    dIdx,
+                                    extra.originalIndex,
+                                    "selection",
+                                    e.target.value,
+                                  )
+                                }
+                                required
+                                className="input-group-input"
+                              />
+                              <div className="market-actions">
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    repeatMarketToNewTicket(
+                                      dIdx,
+                                      extra.originalIndex,
+                                    )
+                                  }
+                                  className="btn-repeat-market"
+                                  title="Repetir mercado em novo bilhete"
+                                >
+                                  Repetir mercado em novo bilhete
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    removeEvent(dIdx, extra.originalIndex)
+                                  }
+                                  className="btn-remove-selection"
+                                >
+                                  Excluir Mercado
+                                </button>
+                              </div>
+                            </div>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                  );
+                })}
+              </section>
+            );
+          })}
+        </div>
 
         <div className="create-bet-page-footer">
-          <button type="button" onClick={addDetail} className="btn-new-ticket">
+          <button type="button" onClick={addDetail} className="btn-new-ticket ticket-button">
             + Adicionar Novo Bilhete
           </button>
-          <button type="submit" disabled={loading} className="btn-submit">
+          <button type="submit" disabled={loading} className="btn-submit ticket-button">
             {loading ? "Salvando..." : "Finalizar Operação"}
           </button>
         </div>

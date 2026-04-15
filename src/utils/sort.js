@@ -58,7 +58,7 @@ export const groupBetsByFurthestDate = (bets) => {
     if (!acc[furthestDate]) {
       acc[furthestDate] = [];
     }
-    
+
     acc[furthestDate].push(bet);
     return acc;
   }, {});
@@ -71,7 +71,7 @@ export const groupBetsByFurthestDate = (bets) => {
       const sortedBets = betsInDate.sort((betA, betB) => {
         return getMaxTimestamp(betB) - getMaxTimestamp(betA);
       });
-      
+
       return [date, sortedBets];
     });
 };
