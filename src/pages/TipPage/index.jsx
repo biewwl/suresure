@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { get } from "../../db/get";
 import { put } from "../../db/put";
+import { remove } from "../../db/delete";
 import TicketCard from "../../Components/TicketCard";
 import "./styles/TipPage.css";
 import { formatCurrency } from "../../utils/format";
@@ -139,6 +140,24 @@ function TipPage() {
     }
   };
 
+  const handleDeleteBet = async () => {
+    const confirmDelete = window.confirm(
+      "Tem certeza que deseja deletar esta operação? Esta ação não pode ser desfeita."
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+      await remove.deleteBet(Number(id));
+      refresh();
+      navigate("/");
+      alert("Operação deletada com sucesso!");
+    } catch (error) {
+      console.error("Erro ao deletar operação:", error);
+      alert("Ocorreu um erro ao deletar a operação. Tente novamente.");
+    }
+  };
+
   return (
     <main
       className={`tip-page-container${isManaging ? " --managing" : ""} page`}
@@ -217,7 +236,7 @@ function TipPage() {
               />{" "}
               Redefinir
             </button>
-            <button className="tip-page-container-actions-btn --delete">
+            <button className="tip-page-container-actions-btn --delete" onClick={handleDeleteBet}>
               <Icon
                 icon="solar:trash-bin-minimalistic-2-linear"
                 width="16"

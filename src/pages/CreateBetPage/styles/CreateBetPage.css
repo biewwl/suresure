@@ -251,8 +251,14 @@
   background-color: var(--dark);
   justify-content: flex-end;
   gap: 10px;
+  padding: 20px;
 }
 
 .btn-remove-event-icon {
   padding: 0;
+}
+
+.btn-submit {
+  background-color: #5dcc77;
+  color: var(--dark);
 }
