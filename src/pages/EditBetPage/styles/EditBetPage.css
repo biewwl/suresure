@@ -1,11 +1,33 @@
-.create-bet-page {
+.edit-bet-page {
   color: var(--light);
   position: relative;
   display: flex;
   flex-direction: column;
 }
 
-.create-bet-page-form {
+.edit-bet-page-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  border-bottom: 1px solid #333;
+}
+
+.edit-bet-page-header h1 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.edit-bet-page-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  color: var(--light);
+  font-size: 1.1em;
+}
+
+.edit-bet-page-form {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -13,7 +35,7 @@
   justify-content: space-between;
 }
 
-.create-bet-page-tickets {
+.edit-bet-page-tickets {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 20px;
@@ -21,23 +43,24 @@
   align-items: flex-start;
 }
 
-.create-bet-page-tickets-ticket {
+.edit-bet-page-tickets-ticket {
   padding: 20px;
   border: 1px solid #333;
   background-color: var(--darker);
   display: flex;
   flex-direction: column;
   gap: 20px;
+  position: relative;
 }
 
-.create-bet-page-tickets-ticket-header {
+.edit-bet-page-tickets-ticket-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
 }
 
-.create-bet-page-tickets-ticket-header-bookmaker {
+.edit-bet-page-tickets-ticket-header-bookmaker {
   width: 40px;
   height: 40px;
   background-color: var(--dark);
@@ -50,7 +73,7 @@
   flex-shrink: 0;
 }
 
-.create-bet-page-tickets-ticket-header-freebet {
+.edit-bet-page-tickets-ticket-header-freebet {
   font-size: 0.8em;
   color: var(--dark);
   display: flex;
@@ -65,17 +88,17 @@
   flex-shrink: 0;
 }
 
-.create-bet-page-tickets-ticket.--freebet .create-bet-page-tickets-ticket-header-freebet {
+.edit-bet-page-tickets-ticket-header-freebet.--freebet {
   background-color: #5dcc77;
   color: var(--dark);
 }
 
-.create-bet-page-tickets-ticket-header-freebet-input {
+.edit-bet-page-tickets-ticket-header-freebet-input {
   display: none;
   cursor: pointer;
 }
 
-.create-bet-page-tickets-ticket-header-remove {
+.edit-bet-page-tickets-ticket-header-remove {
   width: 30px;
   height: 30px;
   background-color: #bd3240;
@@ -88,18 +111,18 @@
   flex-shrink: 0;
 }
 
-.create-bet-page-finance {
+.edit-bet-page-finance {
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 40px 0;
 }
 
-.create-bet-page-finance-inputs {
+.edit-bet-page-finance-inputs {
   display: flex;
   flex-direction: column;
 }
 
-.create-bet-page-finance-inputs-input {
+.edit-bet-page-finance-inputs-input {
   border: none;
   background: none;
   color: var(--lighter);
@@ -111,26 +134,23 @@
   caret-color: transparent;
 }
 
-.create-bet-page-finance-inputs-input:focus {
+.edit-bet-page-finance-inputs-input:focus {
   color: var(--primary);
 }
 
-.create-bet-page-tickets-ticket.--freebet  .create-bet-page-finance-inputs-input.--price:focus {
-  color: #5dcc77;
-}
-
-.create-bet-page-finance-inputs-label {
+.edit-bet-page-finance-inputs-label {
   font-size: 0.8em;
   text-align: center;
 }
 
 .account-input {
-  padding: 5px 10px;
+  padding: 10px;
   background: var(--dark);
   border: 1px solid #333;
   color: var(--light);
   cursor: pointer;
   outline: none;
+  font-size: 0.6em;
 }
 
 .input-group {
@@ -150,7 +170,6 @@
   color: var(--light);
   outline: none;
   width: 100%;
-  font-size: 0.6em;
 }
 
 .input-group-input::-webkit-calendar-picker-indicator,
@@ -158,11 +177,11 @@
   accent-color: var(--light);
   filter: invert(90%);
   cursor: pointer;
-  width: 12px; /* Ajuste o tamanho aqui */
-  height: 12px; /* Ajuste o tamanho aqui */
+  width: 12px;
+  height: 12px;
 }
 
-.create-bet-page-event-header {
+.edit-bet-page-event-header {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -177,24 +196,25 @@
 .ticket-button {
   background-color: var(--dark);
   border: 1px solid #333;
-  padding: 5px 10px;
-  color: var(--light);
+  padding: 10px;
+  color: var(--primary);
   cursor: pointer;
+  font-size: 0.6em;
 }
 
-.create-bet-page-event {
+.edit-bet-page-event {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.create-bet-page-event-list {
+.edit-bet-page-event-list {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.create-bet-page-event.--aditional {
+.edit-bet-page-event.--aditional {
   padding-top: 20px;
   border-top: 1px dashed var(--primary);
   position: relative;
@@ -206,7 +226,7 @@
   gap: 20px;
 }
 
-.create-bet-page-selection-row {
+.edit-bet-page-selection-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px 20px;
@@ -230,7 +250,6 @@
   color: var(--primary);
   cursor: pointer;
   text-align: start;
-  font-size: 0.6em;
 }
 
 .btn-remove-selection {
@@ -240,11 +259,11 @@
 .btn-remove-event {
   position: absolute;
   right: 0;
-  top: -11px;
+  top: -15px;
   font-size: 0.6em;
-  background-color: #bd3240;
-  color: var(--dark);
-  padding: 0;
+  background-color: var(--dark);
+  color: #bd3240;
+  padding: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -263,7 +282,7 @@
   grid-column-end: 3;
 }
 
-.create-bet-page-footer {
+.edit-bet-page-footer {
   display: flex;
   position: sticky;
   bottom: 0;
@@ -282,5 +301,10 @@
 
 .btn-submit {
   background-color: #5dcc77;
+  color: var(--dark);
+}
+
+.btn-new-ticket {
+  background-color: var(--primary);
   color: var(--dark);
 }

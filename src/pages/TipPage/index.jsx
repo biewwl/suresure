@@ -177,6 +177,15 @@ function TipPage() {
             <Icon icon="line-md:close" width="16" height="16" />
           )}
         </button>
+        {!isManaging && (
+          <button
+            className="tip-page-container-actions-btn"
+            onClick={() => navigate(`/edit/${id}`)}
+          >
+            <Icon icon="ri:edit-line" width="16" height="16" />
+            Editar
+          </button>
+        )}
         {isManaging && (
           <>
             {selectedDetailIds.length > 0 &&

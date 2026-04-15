@@ -1,14 +1,14 @@
-import { useState, useRef } from 'react';
-import { getColor } from 'colorthief';
-import { getLogo } from '../../utils/getLogo';
+import { useState, useRef } from "react";
+import { getColor } from "colorthief";
+import { getLogo } from "../../utils/getLogo";
 
 function BookmakerOption({ onSelect, name }) {
-  const [bgColor, setBgColor] = useState('#f0f0f0'); // Cor padrão inicial
+  const [bgColor, setBgColor] = useState("#f0f0f0"); // Cor padrão inicial
   const imgRef = useRef(null);
 
   const handleImageLoad = async () => {
     const img = imgRef.current;
-    
+
     // getPalette ou getColor (getColor retorna a cor dominante)
     if (img.complete) {
       const result = await getColor(img);
@@ -17,25 +17,26 @@ function BookmakerOption({ onSelect, name }) {
     }
   };
 
-  
-
   return (
-    <div 
-      onClick={() => onSelect(name)} 
+    <div
+      onClick={() => onSelect(name)}
       className="select-bookmaker-option"
-      style={{ background: `linear-gradient(-30deg, ${bgColor} 0%, transparent 100%)`, transition: 'background 0.3s ease' }}
+      style={{
+        background: `linear-gradient(-30deg, ${bgColor} 0%, transparent 100%)`,
+        transition: "background 0.3s ease",
+      }}
     >
-      <img 
+      <img
         ref={imgRef}
-        className='bookmaker-avatar' 
-        src={getLogo(name).logo} 
-        alt={name} 
-        width={50} 
+        className="bookmaker-avatar"
+        src={getLogo(name).logo}
+        alt={name}
+        width={50}
         height={50}
         onLoad={handleImageLoad}
         crossOrigin="anonymous" // Importante se as imagens vierem de domínios diferentes
       />
-      <span>{name}</span>
+      <span className="bookmaker-name">{name}</span>
     </div>
   );
 }

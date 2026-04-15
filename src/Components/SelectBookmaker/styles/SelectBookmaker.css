@@ -12,13 +12,13 @@
 }
 
 .select-bookmaker {
-  background: #fff;
+  background: var(--dark);
   padding: 30px;
   width: 80%;
   height: 80%;
   overflow-y: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   gap: 10px;
 }
 
@@ -35,10 +35,15 @@
   justify-content: center;
   aspect-ratio: 1;
   transition: 0.5s;
+  gap: 5px;
 }
 
 .select-bookmaker-option:hover {
   background: linear-gradient(-30deg, #d1d1d1 20%, transparent 100%);
   cursor: pointer;
   scale: 1.05;
+}
+
+.bookmaker-name {
+  font-size: 0.6em;
 }

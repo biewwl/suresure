@@ -2,13 +2,18 @@ import { allLogos } from '../../utils/getLogo';
 import BookmakerOption from '../BookmarkOption';
 import './styles/SelectBookmaker.css';
 
-function SelectBookmaker({ onSelect }) {
+function SelectBookmaker({ onSelect, cancel }) {
 
   const logos = Object.keys(allLogos);
-  console.log(logos);
+
+  const handleContainerClick = (e) => {
+    if (e.target === e.currentTarget && cancel) {
+      cancel();
+    }
+  };
 
   return (
-    <div className='select-bookmaker-container'>
+    <div className='select-bookmaker-container' onClick={handleContainerClick}>
       <div className="select-bookmaker">
         {logos.map((name) => (
           <BookmakerOption

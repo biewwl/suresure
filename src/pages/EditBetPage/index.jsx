@@ -1,19 +1,23 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { post } from "../../db/post";
+import { useNavigate, useParams } from "react-router-dom";
+import { get } from "../../db/get";
+import { put } from "../../db/put";
 import { getAccounts } from "../../db/get";
-import "./styles/CreateBetPage.css";
+import "./styles/EditBetPage.css";
 import SelectBookmaker from "../../Components/SelectBookmaker";
 import { getLogo } from "../../utils/getLogo";
 import { DataContext } from "../../context/DataContext";
 import { Icon } from "@iconify-icon/react";
+import BackButton from "../../Components/BackButton";
 
-function CreateBetPage() {
+function EditBetPage() {
   const navigate = useNavigate();
+  const { id } = useParams();
   const [loading, setLoading] = useState(false);
+  const [pageLoading, setPageLoading] = useState(true);
   const [accounts, setAccounts] = useState([]);
   const [ticketBookmakerSelection, setTicketBookmakerSelection] =
-    useState(null); // { detailIndex: bookmakerName }
+    useState(null);
   const { refresh } = useContext(DataContext);
 
   const [formData, setFormData] = useState({
@@ -38,10 +42,66 @@ function CreateBetPage() {
     ],
   });
 
+  // --- CARREGAMENTO DOS DADOS ---
+  useEffect(() => {
+    const loadBetData = async () => {
+      try {
+        const bet = await get.getBetById(Number(id));
+        if (!bet) {
+          alert("Operação não encontrada!");
+          navigate("/");
+          return;
+        }
+
+        // Formatar os detalhes para o state do form
+        const formattedDetails = bet.details.map((detail) => ({
+          bookmakerId: detail.bookmakerId,
+          price: new Intl.NumberFormat("pt-BR", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }).format(detail.price),
+          accountId: detail.accountId,
+          odd: new Intl.NumberFormat("pt-BR", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }).format(detail.odd),
+          freebet: detail.freebet,
+          events: detail.events.map((event) => ({
+            event: event.event,
+            market: event.market,
+            selection: event.selection,
+            date: event.date,
+            hour: event.hour,
+            isExtraSelection: event.isExtraSelection,
+          })),
+        }));
+
+        setFormData({ details: formattedDetails });
+      } catch (error) {
+        console.error("Erro ao carregar operação:", error);
+        alert("Erro ao carregar operação!");
+        navigate("/");
+      } finally {
+        setPageLoading(false);
+      }
+    };
+
+    const loadAccounts = async () => {
+      try {
+        const loadedAccounts = await getAccounts();
+        setAccounts(loadedAccounts);
+      } catch (error) {
+        console.error("Erro ao carregar contas:", error);
+      }
+    };
+
+    loadBetData();
+    loadAccounts();
+  }, [id, navigate]);
+
   // --- HANDLERS ---
 
   const formatCurrencyInput = (rawValue, detailIndex, field) => {
-    // 1. Limpa os valores
     const cleanValue = rawValue.replace(/\D/g, "");
     const cleanCurrentValue = (
       formData.details[detailIndex][field] || "0,00"
@@ -49,21 +109,11 @@ function CreateBetPage() {
 
     let finalDigits = "";
 
-    // Caso 1: Usuário apagou (Backspace)
     if (cleanValue.length < cleanCurrentValue.length) {
       finalDigits = cleanCurrentValue.slice(0, -1);
-    }
-    // Caso 2: Usuário digitou algo
-    else {
-      // Pegamos o caractere que foi adicionado.
-      // Em vez de confiar na posição do cursor, vamos ver qual dígito
-      // apareceu de novo no cleanValue comparado ao cleanCurrentValue.
-
+    } else {
       let addedDigit = "";
 
-      // Se o valor mudou, o novo dígito é aquele que entrou na string.
-      // Para ser fiel à sua ideia de "ignorar o cursor", pegamos o dígito
-      // que está na posição onde as strings começam a diferir.
       for (let i = 0; i < cleanValue.length; i++) {
         if (cleanValue[i] !== cleanCurrentValue[i]) {
           addedDigit = cleanValue[i];
@@ -71,15 +121,10 @@ function CreateBetPage() {
         }
       }
 
-      // Se não achou no meio (digitou no fim), pega o último
       if (!addedDigit) addedDigit = cleanValue.slice(-1);
-
-      // A MÁGICA: Independente de onde o addedDigit foi encontrado,
-      // nós o concatenamos ao FINAL do valor antigo.
       finalDigits = cleanCurrentValue + addedDigit;
     }
 
-    // A formatação continua a mesma
     return new Intl.NumberFormat("pt-BR", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
@@ -142,7 +187,6 @@ function CreateBetPage() {
     const newData = { ...formData };
     const parentEvent = newData.details[detailIndex].events[eventIndex];
 
-    // Insere a nova seleção logo após a atual, copiando os dados do evento pai
     newData.details[detailIndex].events.splice(eventIndex + 1, 0, {
       event: parentEvent.event,
       date: parentEvent.date,
@@ -158,7 +202,6 @@ function CreateBetPage() {
     const newData = { ...formData };
     const events = newData.details[detailIndex].events;
 
-    // Não permitir remover o primeiro evento do bilhete
     if (eventIndex === 0 || events.length <= 1) {
       return;
     }
@@ -176,21 +219,10 @@ function CreateBetPage() {
     setFormData(newData);
   };
 
-  const removeDetail = (detailIndex) => {
-    if (formData.details.length <= 1) {
-      alert("Você deve manter pelo menos um bilhete!");
-      return;
-    }
-    const newData = { ...formData };
-    newData.details.splice(detailIndex, 1);
-    setFormData(newData);
-  };
-
   const removeEvent = (detailIndex, eventIndex) => {
     const newData = { ...formData };
     const eventItem = newData.details[detailIndex].events[eventIndex];
 
-    // Não permitir remover a primeira seleção do evento
     if (!eventItem?.isExtraSelection) {
       return;
     }
@@ -201,18 +233,15 @@ function CreateBetPage() {
     }
   };
 
-  useEffect(() => {
-    const loadAccounts = async () => {
-      try {
-        const loadedAccounts = await getAccounts();
-        setAccounts(loadedAccounts);
-      } catch (error) {
-        console.error("Erro ao carregar contas:", error);
-      }
-    };
-
-    loadAccounts();
-  }, []);
+  const removeDetail = (detailIndex) => {
+    if (formData.details.length <= 1) {
+      alert("Você deve manter pelo menos um bilhete!");
+      return;
+    }
+    const newData = { ...formData };
+    newData.details.splice(detailIndex, 1);
+    setFormData(newData);
+  };
 
   const repeatMarketToNewTicket = (detailIndex, eventIndex) => {
     const newData = { ...formData };
@@ -220,7 +249,6 @@ function CreateBetPage() {
     const detail = newData.details[detailIndex];
     let eventSource = current;
 
-    // Se for seleção extra, sempre buscar o evento principal para pegar os dados atualizados (data/hora)
     if (current.isExtraSelection) {
       for (let i = eventIndex - 1; i >= 0; i--) {
         if (!newData.details[detailIndex].events[i].isExtraSelection) {
@@ -258,11 +286,11 @@ function CreateBetPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      await post.saveFullBet(formData);
+      await put.updateBet(Number(id), formData);
       navigate("/");
     } catch (error) {
       console.error("Erro:", error);
-      alert("Erro ao salvar.");
+      alert("Erro ao atualizar.");
     } finally {
       setLoading(false);
       refresh();
@@ -281,25 +309,32 @@ function CreateBetPage() {
     }
   };
 
-  const handleCancelBookmakerSelect = () => {
-    setTicketBookmakerSelection(null);
-  };
+  if (pageLoading) {
+    return (
+      <main className="edit-bet-page page">
+        <div className="edit-bet-page-loading">Carregando...</div>
+      </main>
+    );
+  }
 
   return (
-    <main className="create-bet-page page">
-      {/* <h1>Nova Operação</h1>/ */}
+    <main className="edit-bet-page page">
+      <div className="edit-bet-page-header">
+        <BackButton />
+        <h1>Editar Operação</h1>
+      </div>
 
-      <form onSubmit={handleSubmit} className="create-bet-page-form">
-        <div className="create-bet-page-tickets">
+      <form onSubmit={handleSubmit} className="edit-bet-page-form">
+        <div className="edit-bet-page-tickets">
           {formData.details.map((detail, dIdx) => {
             const classFreebet = detail.freebet ? " --freebet" : "";
 
             return (
-              <section key={dIdx} className={`create-bet-page-tickets-ticket${classFreebet}`}>
-                <header className="create-bet-page-tickets-ticket-header">
+              <section key={dIdx} className="edit-bet-page-tickets-ticket">
+                <header className="edit-bet-page-tickets-ticket-header">
                   <button
                     type="button"
-                    className="create-bet-page-tickets-ticket-header-bookmaker"
+                    className="edit-bet-page-tickets-ticket-header-bookmaker"
                     onClick={() =>
                       setTicketBookmakerSelection({ detailIndex: dIdx })
                     }
@@ -308,17 +343,17 @@ function CreateBetPage() {
                       <img
                         src={getLogo(detail.bookmakerId).logo}
                         alt=""
-                        className="create-bet-page-tickets-ticket-header-bookmaker"
+                        className="edit-bet-page-tickets-ticket-header-bookmaker"
                       />
                     ) : (
                       <Icon icon="ic:sharp-add" width="24" height="24" />
                     )}
                   </button>
                   {ticketBookmakerSelection?.detailIndex === dIdx && (
-                    <SelectBookmaker onSelect={handleBookmakerSelect} cancel={handleCancelBookmakerSelect} />
+                    <SelectBookmaker onSelect={handleBookmakerSelect} />
                   )}
                   <label
-                    className={`create-bet-page-tickets-ticket-header-freebet`}
+                    className={`edit-bet-page-tickets-ticket-header-freebet${classFreebet}`}
                   >
                     <input
                       type="checkbox"
@@ -326,7 +361,7 @@ function CreateBetPage() {
                       onChange={(e) =>
                         updateField(dIdx, null, "freebet", e.target.checked)
                       }
-                      className="create-bet-page-tickets-ticket-header-freebet-input"
+                      className="edit-bet-page-tickets-ticket-header-freebet-input"
                     />
                     <Icon icon="mage:gift" width="14" height="14" /> Freebet
                   </label>
@@ -334,7 +369,7 @@ function CreateBetPage() {
                     <button
                       type="button"
                       onClick={() => removeDetail(dIdx)}
-                      className="create-bet-page-tickets-ticket-header-remove"
+                      className="edit-bet-page-tickets-ticket-header-remove"
                       title="Remover bilhete"
                     >
                       <Icon icon="material-symbols:close" width="18" height="18" />
@@ -343,8 +378,8 @@ function CreateBetPage() {
                 </header>
 
                 {/* FINANCEIRO */}
-                <div className="create-bet-page-finance">
-                  <div className="create-bet-page-finance-inputs">
+                <div className="edit-bet-page-finance">
+                  <div className="edit-bet-page-finance-inputs">
                     <input
                       type="tel"
                       placeholder="0.00"
@@ -353,13 +388,13 @@ function CreateBetPage() {
                         updateField(dIdx, null, "price", e.target.value)
                       }
                       required
-                      className="create-bet-page-finance-inputs-input --price"
+                      className="edit-bet-page-finance-inputs-input"
                     />
-                    <span className="create-bet-page-finance-inputs-label">
+                    <span className="edit-bet-page-finance-inputs-label">
                       Valor
                     </span>
                   </div>
-                  <div className="create-bet-page-finance-inputs">
+                  <div className="edit-bet-page-finance-inputs">
                     <input
                       type="tel"
                       placeholder="1.00"
@@ -368,9 +403,9 @@ function CreateBetPage() {
                         updateField(dIdx, null, "odd", e.target.value)
                       }
                       required
-                      className="create-bet-page-finance-inputs-input"
+                      className="edit-bet-page-finance-inputs-input"
                     />
-                    <span className="create-bet-page-finance-inputs-label">
+                    <span className="edit-bet-page-finance-inputs-label">
                       Odd Total
                     </span>
                   </div>
@@ -398,9 +433,8 @@ function CreateBetPage() {
                 {/* EVENTOS E SELEÇÕES */}
 
                 {detail.events.map((ev, eIdx) => {
-                  // Se for uma seleção extra, não renderizamos o cabeçalho do evento de novo
                   if (ev.isExtraSelection) return null;
-                  // Filtramos as seleções que pertencem a este evento específico (os próximos itens no array que são extras)
+
                   const extraSelections = [];
                   for (let i = eIdx + 1; i < detail.events.length; i++) {
                     if (detail.events[i].isExtraSelection) {
@@ -418,10 +452,10 @@ function CreateBetPage() {
                   return (
                     <div
                       key={eIdx}
-                      className={`create-bet-page-event${eventClass}`}
+                      className={`edit-bet-page-event${eventClass}`}
                     >
                       {/* CABEÇALHO DO EVENTO */}
-                      <div className="create-bet-page-event-header">
+                      <div className="edit-bet-page-event-header">
                         <div className="input-group">
                           <label htmlFor="event" className="input-group-label">
                             Evento:
@@ -491,15 +525,15 @@ function CreateBetPage() {
                             className="btn-remove-event ticket-button"
                             title="Apagar este evento"
                           >
-                            <Icon icon="material-symbols:close" width="18" height="18"  className="btn-remove-event-icon" />
+                            <Icon icon="material-symbols:close" width="18" height="18" className="btn-remove-event-icon" />
                           </button>
                         )}
                       </div>
                       {/* LISTA DE SELEÇÕES (O primeiro item + as extras) */}
-                      <ol className="create-bet-page-event-list">
+                      <ol className="edit-bet-page-event-list">
                         {/* Primeira Seleção */}
                         <li className="ticket-selection">
-                          <div className="create-bet-page-selection-row">
+                          <div className="edit-bet-page-selection-row">
                             <input
                               placeholder="Mercado (ex: Gols)"
                               value={ev.market}
@@ -544,7 +578,7 @@ function CreateBetPage() {
                             key={extra.originalIndex}
                             className="ticket-events ticket-selection"
                           >
-                            <div className="create-bet-page-selection-row">
+                            <div className="edit-bet-page-selection-row">
                               <input
                                 placeholder="Mercado"
                                 value={extra.market}
@@ -609,12 +643,12 @@ function CreateBetPage() {
           })}
         </div>
 
-        <div className="create-bet-page-footer">
+        <div className="edit-bet-page-footer">
           <button type="button" onClick={addDetail} className="btn-new-ticket ticket-button">
             + Adicionar Novo Bilhete
           </button>
           <button type="submit" disabled={loading} className="btn-submit ticket-button">
-            {loading ? "Salvando..." : "Finalizar Operação"}
+            {loading ? "Atualizando..." : "Atualizar Operação"}
           </button>
         </div>
       </form>
@@ -622,4 +656,4 @@ function CreateBetPage() {
   );
 }
 
-export default CreateBetPage;
+export default EditBetPage;

@@ -1,4 +1,5 @@
 import CreateBetPage from './pages/CreateBetPage';
+import EditBetPage from './pages/EditBetPage';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import TipPage from './pages/TipPage';
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/create" element={<CreateBetPage />} />
+        <Route path="/edit/:id" element={<EditBetPage />} />
         <Route path="/tip/:id" element={<TipPage />} />
       </Routes>
     </div>
