@@ -23,25 +23,19 @@
 }
 
 .bookmaker-avatar {
-  background: linear-gradient(#ffffff 50%, #fff 100%);
-  border-radius: 50%;
+  border-radius: 1em;
 }
 
 .select-bookmaker-option {
   display: flex;
   flex-direction: column;
+  background: var(--darker);
   /* background: linear-gradient(-30deg, #e4e4e4 20%, transparent 100%); */
   align-items: center;
   justify-content: center;
   aspect-ratio: 1;
   transition: 0.5s;
   gap: 5px;
-}
-
-.select-bookmaker-option:hover {
-  background: linear-gradient(-30deg, #d1d1d1 20%, transparent 100%);
-  cursor: pointer;
-  scale: 1.05;
 }
 
 .bookmaker-name {

@@ -21,20 +21,13 @@ function BookmakerOption({ onSelect, name }) {
     <div
       onClick={() => onSelect(name)}
       className="select-bookmaker-option"
-      style={{
-        background: `linear-gradient(-30deg, ${bgColor} 0%, transparent 100%)`,
-        transition: "background 0.3s ease",
-      }}
     >
       <img
-        ref={imgRef}
         className="bookmaker-avatar"
         src={getLogo(name).logo}
         alt={name}
         width={50}
         height={50}
-        onLoad={handleImageLoad}
-        crossOrigin="anonymous" // Importante se as imagens vierem de domínios diferentes
       />
       <span className="bookmaker-name">{name}</span>
     </div>

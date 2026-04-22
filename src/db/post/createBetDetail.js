@@ -13,9 +13,9 @@ export async function createBetDetail(betId, detailData) {
     betId,
     bookmakerId: detailData.bookmakerId,
     accountId: detailData.accountId ? Number(detailData.accountId) : null,
-    // Forçamos Number para evitar strings que quebram o cálculo de lucro
-    price: Number(detailData.price) || 0,
-    odd: Number(detailData.odd) || 0,
+    // Converte de pt-BR (ex: "100,50") para número
+    price: parseFloat(detailData.price.replace(/\./g, '').replace(',', '.')),
+    odd: parseFloat(detailData.odd.replace(/\./g, '').replace(',', '.')),
     freebet: detailData.freebet || false,
     win: null,
     createdAt: new Date().toISOString(),

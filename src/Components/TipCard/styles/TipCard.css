@@ -107,6 +107,11 @@
   border-radius: 50%;
 }
 
+.tip-card-bookmaker-logo.--grey {
+  filter: grayscale();
+  opacity: 0.3;
+}
+
 .tip-card-bookmaker-more {
   font-size: 0.8em;
   color: var(--light);

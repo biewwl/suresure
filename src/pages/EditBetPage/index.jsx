@@ -112,6 +112,11 @@ function EditBetPage() {
     if (cleanValue.length < cleanCurrentValue.length) {
       finalDigits = cleanCurrentValue.slice(0, -1);
     } else {
+      // Se não houve mudança nos dígitos válidos, retorna o valor atual
+      if (cleanValue === cleanCurrentValue) {
+        return formData.details[detailIndex][field] || "0,00";
+      }
+
       let addedDigit = "";
 
       for (let i = 0; i < cleanValue.length; i++) {

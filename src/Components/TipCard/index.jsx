@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import "./styles/TipCard.css";
 import { formatCurrency, formatDate } from "../../utils/format";
@@ -6,25 +6,28 @@ import { getLogo } from "../../utils/getLogo";
 import { LuArrowUpRight as ArrowUpRight } from "react-icons/lu";
 import { getSortedUniqueEvents } from "../../utils/sort";
 import { getStatusBet } from "../../utils/status";
+import { bookmakersWin } from "../../utils/bookmakersWin";
 
 function TipCard({ bet }) {
   const limitBookmakers = 3;
   const limitEvents = 3;
 
+  const [bookmakersW, setBookmakersW] = useState([]);
+
   const uniqueEvents = useMemo(() => getSortedUniqueEvents(bet), [bet]);
 
   const uniqueEventsLimited = useMemo(
     () => uniqueEvents.slice(0, limitEvents),
-    [uniqueEvents]
+    [uniqueEvents],
   );
 
   const uniqueBookmakers = useMemo(
     () => [...new Set(bet.details.map((detail) => detail.bookmakerId))],
-    [bet.details]
+    [bet.details],
   );
   const uniqueBookmakersLimited = useMemo(
     () => uniqueBookmakers.slice(0, limitBookmakers),
-    [uniqueBookmakers]
+    [uniqueBookmakers],
   );
 
   const formattedEvents = useMemo(
@@ -33,10 +36,28 @@ function TipCard({ bet }) {
         const [datePart, timePart] = formatDate(event.data, event.horario);
         return { ...event, datePart, timePart };
       }),
-    [uniqueEventsLimited]
+    [uniqueEventsLimited],
   );
 
   const classStatus = useMemo(() => getStatusBet(bet), [bet]);
+  const isPending = classStatus === " --pending";
+
+  useEffect(() => {
+    const filterWBookmakers = () => {
+      if (!isPending) {
+        const w = bookmakersWin(bet.details);
+        setBookmakersW(w);
+      }
+    };
+    filterWBookmakers();
+  }, [bet.details, isPending]);
+
+  const classBookmaker = (b) => {
+    if (!isPending && !bookmakersW.some((b1) => b1 === b)) {
+      return " --grey"
+    }
+    return "";
+  }
 
   return (
     <div className={`tip-card ${classStatus}`}>
@@ -45,7 +66,7 @@ function TipCard({ bet }) {
           <div key={index} className="tip-card-event">
             <p className="tip-card-event-title">{event.evento}</p>
             <span className="tip-card-event-date">
-              {event.datePart} às {event.timePart}
+              {event.datePart} - {event.timePart}
             </span>
           </div>
         ))}
@@ -67,7 +88,7 @@ function TipCard({ bet }) {
             <img
               src={getLogo(bookmakerId).logo}
               alt=""
-              className="tip-card-bookmaker-logo"
+              className={`tip-card-bookmaker-logo${classBookmaker(bookmakerId)}`}
             />
           </Link>
         ))}
@@ -78,9 +99,22 @@ function TipCard({ bet }) {
         )}
       </div>
       <ul className="tip-card-finance">
-        <li>Valor Gasto: <span className="tip-card-finance-value">{formatCurrency(bet.totalStake)}</span></li>
-        <li>Lucro: <span className="tip-card-finance-value">{formatCurrency(bet.totalProfit)}</span></li>
-        <li>Arbitragem: <span className="tip-card-finance-value">{bet.formattedROI}</span></li>
+        <li>
+          Valor Gasto:{" "}
+          <span className="tip-card-finance-value">
+            {formatCurrency(bet.totalStake)}
+          </span>
+        </li>
+        <li>
+          Lucro:{" "}
+          <span className="tip-card-finance-value">
+            {formatCurrency(bet.totalProfit)}
+          </span>
+        </li>
+        <li>
+          Arbitragem:{" "}
+          <span className="tip-card-finance-value">{bet.formattedROI}</span>
+        </li>
       </ul>
       <Link to={`tip/${bet.id}`} className="tip-card-link">
         Detalhes

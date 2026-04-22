@@ -55,6 +55,11 @@ function CreateBetPage() {
     }
     // Caso 2: Usuário digitou algo
     else {
+      // Se não houve mudança nos dígitos válidos, retorna o valor atual
+      if (cleanValue === cleanCurrentValue) {
+        return formData.details[detailIndex][field] || "0,00";
+      }
+
       // Pegamos o caractere que foi adicionado.
       // Em vez de confiar na posição do cursor, vamos ver qual dígito
       // apareceu de novo no cleanValue comparado ao cleanCurrentValue.

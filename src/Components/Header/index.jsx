@@ -8,7 +8,7 @@ import BlockInfo from "../BlockInfo";
 import { exportDB, importDB } from "../../db";
 
 function Header() {
-  const { profit, investment, daysCount } = useContext(DataContext);
+  const { profit, investment, daysCount, freebetCount, bingoCount, pendingCount } = useContext(DataContext);
 
   const classProfit = () => {
     if (profit > 0) return " --won";
@@ -65,6 +65,9 @@ function Header() {
         />
         <BlockInfo label="Investimento" value={formatCurrency(investment)} />
         <BlockInfo label="Dias" value={daysCount} />
+        <BlockInfo label="Apostas Grátis" value={freebetCount} />
+        <BlockInfo label="Bingos" value={bingoCount} />
+        <BlockInfo label="Pendentes" value={pendingCount} />
       </div>
       {/* <div className="header-finance">
         <span className={`header-finance-profit${classProfit()}`}>

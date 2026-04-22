@@ -1,6 +1,6 @@
 import Tips from "../../Components/Tips";
 import "./styles/Home.css";
-import { useContext, useState, useMemo, useCallback } from "react";
+import { useContext, useState, useMemo, useCallback, useEffect } from "react";
 import {
   calculateTotalProfit,
   groupBetsByFurthestDate,
@@ -10,7 +10,7 @@ import { LuChevronUp as ChevronUp, LuChevronDown as ChevronDown } from "react-ic
 import { DataContext } from "../../context/DataContext";
 
 function Home() {
-  const [recoilIds, setRecoilIds] = useState([]);
+  const [recoilIds, setRecoilIds] = useState([0]);
   const { bets, loading } = useContext(DataContext);
 
   const groupBets = useMemo(() => groupBetsByFurthestDate(bets), [bets]);
@@ -26,11 +26,14 @@ function Home() {
 
   if (loading) return <p>Carregando operações...</p>;
 
+  console.log(bets);
+  
+
   return (
     <div className="home page">
 
       {groupBets.map(([date, b], i) => {
-        const isHide = recoilIds.some((rI) => rI === i);
+        const isHide = !recoilIds.some((rI) => rI === i);
 
         return (
           <div key={date} className="bets-group">
