@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/suresure/static/css/main.8161ff13.css",
-    "main.js": "/suresure/static/js/main.c46d05a0.js",
+    "main.css": "/suresure/static/css/main.4b4db48d.css",
+    "main.js": "/suresure/static/js/main.0103aab2.js",
     "static/media/betao.jpg": "/suresure/static/media/betao.f2404d2e40ae05ea5013.jpg",
     "static/media/Signature.otf": "/suresure/static/media/Signature.ae71cfbc5e76d2c194b2.otf",
     "static/media/lottu.png": "/suresure/static/media/lottu.ff5c3aba38b8d2e30aed.png",
@@ -32,11 +32,11 @@
     "static/media/betano.webp": "/suresure/static/media/betano.4912fe5224d47ab83b02.webp",
     "static/media/estrelabet.webp": "/suresure/static/media/estrelabet.6d18f655c5ee5eeedaee.webp",
     "index.html": "/suresure/index.html",
-    "main.8161ff13.css.map": "/suresure/static/css/main.8161ff13.css.map",
-    "main.c46d05a0.js.map": "/suresure/static/js/main.c46d05a0.js.map"
+    "main.4b4db48d.css.map": "/suresure/static/css/main.4b4db48d.css.map",
+    "main.0103aab2.js.map": "/suresure/static/js/main.0103aab2.js.map"
   },
   "entrypoints": [
-    "static/css/main.8161ff13.css",
-    "static/js/main.c46d05a0.js"
+    "static/css/main.4b4db48d.css",
+    "static/js/main.0103aab2.js"
   ]
 }
