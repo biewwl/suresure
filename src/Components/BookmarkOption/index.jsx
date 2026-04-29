@@ -1,22 +1,6 @@
-import { useState, useRef } from "react";
-import { getColor } from "colorthief";
 import { getLogo } from "../../utils/getLogo";
 
 function BookmakerOption({ onSelect, name }) {
-  const [bgColor, setBgColor] = useState("#f0f0f0"); // Cor padrão inicial
-  const imgRef = useRef(null);
-
-  const handleImageLoad = async () => {
-    const img = imgRef.current;
-
-    // getPalette ou getColor (getColor retorna a cor dominante)
-    if (img.complete) {
-      const result = await getColor(img);
-      console.log(result);
-      setBgColor(`rgb(${result._r}, ${result._g}, ${result._b})`);
-    }
-  };
-
   return (
     <div
       onClick={() => onSelect(name)}

@@ -9,44 +9,38 @@ const defaultAccounts = [
 ];
 
 export const initDB = async () => {
-  // Alterado para versão 2 para garantir que o upgrade seja executado
-  return openDB('SurebetDB', 1, {
-    upgrade(db) {
-      // Store de Apostas (Mãe)
+  // Aumentamos a versão para 2 para disparar o upgrade
+  return openDB('SurebetDB', 2, {
+    upgrade(db, oldVersion, newVersion) {
+      // ... (suas stores existentes permanecem iguais)
       if (!db.objectStoreNames.contains('bets')) {
         db.createObjectStore('bets', { keyPath: 'id', autoIncrement: true });
       }
-
-      // Store de Detalhes (Bilhetes)
       if (!db.objectStoreNames.contains('bet_details')) {
         const store = db.createObjectStore('bet_details', { keyPath: 'id', autoIncrement: true });
         store.createIndex('betId', 'betId');
       }
-
-      // Store de Eventos (Múltiplas)
       if (!db.objectStoreNames.contains('multiple_bets')) {
         const store = db.createObjectStore('multiple_bets', { keyPath: 'id', autoIncrement: true });
         store.createIndex('betDetailId', 'betDetailId');
       }
-
-      // Store de Bônus
       if (!db.objectStoreNames.contains('bonuses')) {
         db.createObjectStore('bonuses', { keyPath: 'id', autoIncrement: true });
       }
-
-      // --- NOVA STORE: ACCOUNTS ---
       if (!db.objectStoreNames.contains('accounts')) {
-        const accountStore = db.createObjectStore('accounts', {
+        const accountStore = db.createObjectStore('accounts', { keyPath: 'id', autoIncrement: true });
+        defaultAccounts.forEach(account => accountStore.add(account));
+      }
+
+      // --- NOVA STORE: OTHER_EARNINGS ---
+      if (!db.objectStoreNames.contains('other_earnings')) {
+        const otherStore = db.createObjectStore('other_earnings', {
           keyPath: 'id',
           autoIncrement: true
         });
-
-        // Inserindo os dados padrão assim que a store é criada
-        defaultAccounts.forEach(account => {
-          accountStore.add(account);
-        });
-
-        console.log('Store "accounts" criada e populada com sucesso!');
+        // Indexamos por accountId (o id da conta que ganhou) e bookmakerId para buscas rápidas
+        otherStore.createIndex('accountId', 'accountId');
+        otherStore.createIndex('bookmakerId', 'bookmakerId');
       }
     },
   });
@@ -56,7 +50,8 @@ export const clearDB = async () => {
   const db = await initDB();
 
   // Lista atualizada de todas as stores para a transação
-  const stores = ['bets', 'bet_details', 'multiple_bets', 'bonuses', 'accounts'];
+  // No clearDB, exportDB e importDB, atualize a lista de stores:
+  const stores = ['bets', 'bet_details', 'multiple_bets', 'bonuses', 'accounts', 'other_earnings'];
 
   const tx = db.transaction(stores, 'readwrite');
 
@@ -67,12 +62,13 @@ export const clearDB = async () => {
 
   await tx.done;
   console.log('Banco de dados limpo com sucesso!');
-}; 
+};
 
 // Função para Exportar (Backup)
 export const exportDB = async () => {
   const db = await initDB();
-  const stores = ['bets', 'bet_details', 'multiple_bets', 'bonuses', 'accounts'];
+  // No clearDB, exportDB e importDB, atualize a lista de stores:
+  const stores = ['bets', 'bet_details', 'multiple_bets', 'bonuses', 'accounts', 'other_earnings'];
   const allData = {};
 
   for (const storeName of stores) {
@@ -81,10 +77,10 @@ export const exportDB = async () => {
 
   const blob = new Blob([JSON.stringify(allData, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
-  
+
   const a = document.createElement('a');
   a.href = url;
-  a.download = `backup_surebet_${new Date().toISOString().slice(0,10)}.json`;
+  a.download = `backup_surebet_${new Date().toISOString().slice(0, 10)}.json`;
   a.click();
   URL.revokeObjectURL(url);
 };
@@ -92,7 +88,7 @@ export const exportDB = async () => {
 // Função para Importar (Restore)
 export const importDB = async (file) => {
   const reader = new FileReader();
-  
+
   reader.onload = async (e) => {
     try {
       const data = JSON.parse(e.target.result);
@@ -101,11 +97,11 @@ export const importDB = async (file) => {
 
       // Inicia uma transação de escrita para todas as stores
       const tx = db.transaction(stores, 'readwrite');
-      
+
       for (const storeName of stores) {
         const store = tx.objectStore(storeName);
         await store.clear(); // Limpa o que existe antes de restaurar
-        
+
         for (const item of data[storeName]) {
           await store.put(item); // Usa put para manter os IDs originais
         }

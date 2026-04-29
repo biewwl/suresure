@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import "./styles/Header.css";
-import { LuFlame as Star, LuHouse as Home, LuUser as User, LuTicket as Ticket, LuCalculator as Calculator, LuUpload as Upload, LuDownload as Download, LuSettings as Settings, LuX as X, LuPencil as Edit2 } from "react-icons/lu";
+import { LuFlame as Star, LuHouse as Home, LuUser as User, LuTicket as Ticket, LuCalculator as Calculator, LuUpload as Upload, LuDownload as Download, LuChartBar as StatsIcon } from "react-icons/lu";
 import { formatCurrency } from "../../utils/format";
 import { useContext } from "react";
 import { DataContext } from "../../context/DataContext";
 import BlockInfo from "../BlockInfo";
 import { exportDB, importDB } from "../../db";
+import { MdCasino } from "react-icons/md";
 
 function Header() {
   const { profit, investment, daysCount, freebetCount, bingoCount, pendingCount } = useContext(DataContext);
@@ -37,11 +38,19 @@ function Header() {
         </Link>
         <Link to="/accounts" className="app-nav-item">
           <User size={18} />
-          Accounts
+          Contas
         </Link>
         <Link to="/create" className="app-nav-item">
           <Ticket size={18} />
           Criar
+        </Link>
+        <Link to="/statistics" className="app-nav-item">
+          <StatsIcon size={18} />
+          Estatísticas
+        </Link>
+        <Link to="/other-earnings" className="app-nav-item">
+          <MdCasino size={18} />
+          Extras
         </Link>
         <Link to="https://bettracker.com.br/calculator" target="_blank" className="app-nav-item">
           <Calculator size={18} />

@@ -1,0 +1,94 @@
+.statistics-page {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 24px;
+  color: var(--light);
+}
+
+.statistics-block {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.section-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.section-title-group h1 {
+  font-size: 1rem;
+
+}
+
+.section-title-group p {
+  margin: 0;
+  color: var(--lighter);
+}
+
+.accounts-table-wrapper {
+  display: grid;
+  gap: 10px;
+}
+
+.accounts-table-header,
+.accounts-table-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.accounts-table-header {
+  color: var(--lighter);
+  border-bottom: 1px solid #333;
+}
+
+.accounts-table-row {
+  color: var(--light);
+  padding: 20px;
+  background-color: var(--darker);
+  position: relative;
+}
+
+.accounts-table-row-name {
+  margin-bottom: 10px;
+}
+
+.accounts-table-row-item {
+  font-size: 0.8em;
+  display: flex;
+  gap: 5px;
+  color: var(--light);
+}
+
+.accounts-table-row-item span {
+  font-weight: 800;
+  color: var(--lighter);
+}
+
+.accounts-table-row-item.--percent {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-size: 2.5em;
+  opacity: 0.1;
+}
+
+.statistics-empty {
+  color: var(--lighter);
+  padding: 16px 0;
+}
+
+
+@media screen and (max-width: 960px) {
+  .statistics-page {
+    padding: 18px 16px;
+  }
+
+  .accounts-table-header,
+  .accounts-table-row {
+    gap: 8px;
+  }
+}

@@ -1,5 +1,4 @@
 import { initDB } from '../';
-import { calculateDetailProfit } from '../../utils/calculateDetailProfit';
 import { getCompleteBet } from './getCompleteBet';
 
 /**

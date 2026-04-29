@@ -16,16 +16,21 @@ export const DataContext = createContext();
 // Crie um provedor de contexto
 export const DataProvider = ({ children }) => {
   const [bets, setBets] = useState([]);
+  const [otherEarnings, setOtherEarnings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refresh, setRefresh] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await get.getAllBets();
+        const [data, other] = await Promise.all([
+          get.getAllBets(),
+          get.getOtherEarnings(),
+        ]);
         setBets(data);
+        setOtherEarnings(other || []);
       } catch (error) {
-        console.error("Erro ao carregar apostas:", error);
+        console.error("Erro ao carregar dados:", error);
       } finally {
         setLoading(false);
       }
@@ -34,10 +39,20 @@ export const DataProvider = ({ children }) => {
   }, [refresh]);
 
   const refreshData = () => {
-    setRefresh(!refresh);
+    setRefresh((current) => !current);
   };
 
-  const profit = useMemo(() => calculateTotalProfit(bets), [bets]);
+  const otherEarningsProfit = useMemo(() => {
+    return otherEarnings.reduce((acc, item) => {
+      const value = parseFloat(item.value) || 0;
+      return acc + value;
+    }, 0);
+  }, [otherEarnings]);
+
+  const profit = useMemo(
+    () => Number((calculateTotalProfit(bets) + otherEarningsProfit).toFixed(2)),
+    [bets, otherEarningsProfit],
+  );
   const investment = useMemo(() => calculateTotalSpend(bets), [bets]);
   const daysCount = useMemo(() => groupBetsByFurthestDate(bets).length, [bets]);
   const freebetCount = useMemo(() => countFreebets(bets), [bets]);
@@ -48,6 +63,8 @@ export const DataProvider = ({ children }) => {
     <DataContext.Provider
       value={{
         bets,
+        otherEarnings,
+        otherEarningsProfit,
         loading,
         refresh: refreshData,
         profit,
@@ -55,7 +72,7 @@ export const DataProvider = ({ children }) => {
         daysCount,
         freebetCount,
         bingoCount,
-        pendingCount
+        pendingCount,
       }}
     >
       {children}

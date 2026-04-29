@@ -37,7 +37,6 @@ export const BOOKMAKERS_DATA = [
   { name: 'HiperBet', url: 'https://m.hiper.bet.br/ptb/bet/sports', avatar: 'hiperbet.jpeg' },
   { name: 'BrasilDaSorte', url: 'https://brasildasorte.bet.br/home/events-area', avatar: 'brasildasorte.png' },
   { name: 'F12Bet', url: 'https://f12.bet.br/prejogo/', avatar: 'f12bet.jpg' },
-  { name: 'MrJackBet', url: 'https://mrjack.bet.br/', avatar: 'mrjackbet.jpg' },
   { name: 'LanceDaSorte', url: 'https://lancedesorte.bet.br/', avatar: 'lancedasorte.webp' },
   { name: 'PagolBet', url: 'https://pagol.bet.br/br/aposta-esportiva/home', avatar: 'pagol.jpeg' },
   { name: 'FourPlayBet', url: 'https://4play.bet.br/apostas-esportivas/destaques', avatar: '4playbet.jpeg' },

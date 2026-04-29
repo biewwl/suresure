@@ -1,0 +1,220 @@
+.other-earnings-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  color: var(--light);
+}
+
+.other-earnings-page-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.other-earnings-page-title {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.other-earnings-page-form {
+  display: grid;
+  gap: 20px;
+  padding: 20px;
+  border: 1px solid #333;
+  background-color: var(--darker);
+}
+
+.other-earnings-page-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.other-earnings-page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.other-earnings-page-preview-panel {
+  display: grid;
+  gap: 14px;
+}
+
+.other-earnings-page-preview {
+  display: grid;
+  gap: 10px;
+  align-items: center;
+}
+
+.other-earnings-page-preview img {
+  width: 100%;
+  max-width: 120px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 1px solid #333;
+}
+
+.other-earnings-page-image-options {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.image-option-button {
+  border: 1px solid transparent;
+  background: none;
+  padding: 0;
+  min-width: 72px;
+  min-height: 72px;
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.image-option-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.other-earnings-card-logo-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.image-option-button.active {
+  border-color: var(--primary);
+}
+
+.bookmaker-selector {
+  cursor: pointer;
+}
+
+.bookmaker-placeholder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: var(--light);
+  font-size: 1.2rem;
+  border: 1px dashed #555;
+}
+
+.other-earnings-page-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.other-earnings-page-card {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #333;
+  background-color: var(--dark);
+  position: relative;
+}
+
+.other-earnings-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.other-earnings-card-logo-container {
+  height: 80px;
+  background-size: cover;
+  position: relative;
+  aspect-ratio: 1;
+  border: 1px solid #333;
+}
+
+.other-earnings-card-logo-bg {
+  height: 100%;
+  width: 100%;
+  filter: grayscale();
+}
+
+.other-earnings-card-logo {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  /* border-radius: 50%; */
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  border: 1px solid #333;
+}
+
+.other-earnings-card-value {
+  font-size: 0.6em;
+  color: #5dcc77;
+}
+
+.other-earnings-card-logo-date {
+  display: flex;
+  gap: 5px;
+}
+
+.other-earnings-card-date span {
+  display: block;
+}
+
+.other-earnings-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  
+}
+
+.other-earnings-card-description {
+  font-size: 0.8em;
+}
+
+.other-earnings-card-logo-account {
+  font-size: 0.6em;
+  opacity: 0.5;
+}
+
+.other-earnings-card-image {
+  width: 30px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 1px solid #333;
+}
+
+.other-earnings-page-no-data {
+  padding: 20px;
+  color: var(--light);
+}
+
+.other-earnings-page-note {
+  font-size: 0.85rem;
+  color: var(--lighter);
+}
+
+.btn-remove-selection {
+  border: none;
+  color: #bd3240;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+

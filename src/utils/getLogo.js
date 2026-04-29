@@ -19,7 +19,7 @@ import JogoDeOuro from "../assets/jogodeouro.png";
 import Betfast from "../assets/betfast.png";
 import UxBet from "../assets/uxbet.png";
 import Bateu from "../assets/bateubet.webp";
-import EsportivaBet from "../assets/esportivabet.png";
+import EsportivaBet from "../assets/esportivabet.jfif";
 import Br4Bet from "../assets/br4.jpeg";
 import VaiDeBet from "../assets/vaidebet.jpeg";
 import BetfairExchange from "../assets/betfairexchange.webp";
@@ -36,7 +36,6 @@ import FlaBet from "../assets/flabet.jpeg";
 import HiperBet from "../assets/hiperbet.jpeg";
 import BrasilDaSorte from "../assets/brasildasorte.png";
 import F12Bet from "../assets/f12bet.jpg";
-import MrJackBet from "../assets/mrjackbet.jpg";
 import LanceDaSorte from "../assets/lancedasorte.webp";
 import PagolBet from "../assets/pagol.jpeg";
 import FourPlayBet from "../assets/4playbet.jpeg";
@@ -50,6 +49,8 @@ import AlfaBet from "../assets/alfabet.png";
 import QGbet from "../assets/qgbet.png";
 import Fulltbet from "../assets/fulltbet.jpg";
 import BetMgm from "../assets/betmgm.png";
+import Lottu from "../assets/lottu.png";
+import EsportesDaSorte from "../assets/esportesdasorte.jfif";
 
 export const getLogo = (name) => {
   const betName = name.toLowerCase();
@@ -186,11 +187,6 @@ export const getLogo = (name) => {
         logo: F12Bet,
         site: "https://f12.bet.br/prejogo/",
       };
-    case "mrjackbet":
-      return {
-        logo: MrJackBet,
-        site: "https://mrjack.bet.br/",
-      };
     case "lancedasorte":
       return {
         logo: LanceDaSorte,
@@ -258,6 +254,16 @@ export const getLogo = (name) => {
         logo: BetMgm,
         site: "https://www.betmgm.bet.br/aposta-esportiva#featured",
       };
+    case "lottu":
+      return {
+        logo: Lottu,
+        site: "https://www.lottu.bet.br/"
+      }
+    case "esportesdasorte":
+    return {
+      logo: EsportesDaSorte,
+      site: "https://esportesdasorte.bet.br/ptb/bet/main"
+    }
     // Add more cases as needed
     default:
       return {
@@ -307,7 +313,6 @@ export const allLogos = {
   HiperBet,
   BrasilDaSorte,
   F12Bet,
-  MrJackBet,
   LanceDaSorte,
   PagolBet,
   FourPlayBet,
@@ -321,4 +326,6 @@ export const allLogos = {
   QGbet,
   Fulltbet,
   BetMgm,
+  Lottu,
+  EsportesDaSorte
 };

@@ -1,6 +1,6 @@
 import Tips from "../../Components/Tips";
 import "./styles/Home.css";
-import { useContext, useState, useMemo, useCallback, useEffect } from "react";
+import { useContext, useState, useMemo, useCallback } from "react";
 import {
   calculateTotalProfit,
   groupBetsByFurthestDate,

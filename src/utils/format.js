@@ -1,4 +1,10 @@
 const formatCurrency = (value) => {
+  if (typeof value === 'string') {
+    value = parseFloat(value.replace(',', '.'));
+  }
+  if (isNaN(value)) {
+    value = 0;
+  }
   return `R$ ${value.toFixed(2)}`.replace('.', ',');
 }
 
