@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/suresure/static/css/main.4b4db48d.css",
-    "main.js": "/suresure/static/js/main.0103aab2.js",
+    "main.js": "/suresure/static/js/main.6c79d01a.js",
     "static/media/betao.jpg": "/suresure/static/media/betao.f2404d2e40ae05ea5013.jpg",
     "static/media/Signature.otf": "/suresure/static/media/Signature.ae71cfbc5e76d2c194b2.otf",
     "static/media/lottu.png": "/suresure/static/media/lottu.ff5c3aba38b8d2e30aed.png",
@@ -20,6 +20,7 @@
     "static/media/fulltbet.jpg": "/suresure/static/media/fulltbet.b6c5f9ced01b59c61d63.jpg",
     "static/media/vaidebet.jpeg": "/suresure/static/media/vaidebet.e38e1a7a393be852ee0f.jpeg",
     "static/media/lancedasorte.webp": "/suresure/static/media/lancedasorte.75e72ad245d60ada909c.webp",
+    "static/media/ganheibet.webp": "/suresure/static/media/ganheibet.18618f2dc7020065c1d7.webp",
     "static/media/blaze.png": "/suresure/static/media/blaze.fabc740f9d2ca1901146.png",
     "static/media/apostaganha.png": "/suresure/static/media/apostaganha.cd2e7bc040f19db120d6.png",
     "static/media/bet7k.png": "/suresure/static/media/bet7k.97439a3bef682852d9c3.png",
@@ -33,10 +34,10 @@
     "static/media/estrelabet.webp": "/suresure/static/media/estrelabet.6d18f655c5ee5eeedaee.webp",
     "index.html": "/suresure/index.html",
     "main.4b4db48d.css.map": "/suresure/static/css/main.4b4db48d.css.map",
-    "main.0103aab2.js.map": "/suresure/static/js/main.0103aab2.js.map"
+    "main.6c79d01a.js.map": "/suresure/static/js/main.6c79d01a.js.map"
   },
   "entrypoints": [
     "static/css/main.4b4db48d.css",
-    "static/js/main.0103aab2.js"
+    "static/js/main.6c79d01a.js"
   ]
 }
