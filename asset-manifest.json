@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/suresure/static/css/main.7803a0d7.css",
-    "main.js": "/suresure/static/js/main.bc717846.js",
+    "main.js": "/suresure/static/js/main.18a9dfa0.js",
     "static/media/betao.jpg": "/suresure/static/media/betao.f2404d2e40ae05ea5013.jpg",
     "static/media/Signature.otf": "/suresure/static/media/Signature.ae71cfbc5e76d2c194b2.otf",
     "static/media/lottu.png": "/suresure/static/media/lottu.ff5c3aba38b8d2e30aed.png",
@@ -33,12 +33,13 @@
     "static/media/esportesdasorte.jfif": "/suresure/static/media/esportesdasorte.2631f52a9329beab592e.jfif",
     "static/media/betano.webp": "/suresure/static/media/betano.4912fe5224d47ab83b02.webp",
     "static/media/reidopitaco.webp": "/suresure/static/media/reidopitaco.d44655c55e58b943c377.webp",
+    "static/media/tivobet.webp": "/suresure/static/media/tivobet.deb847faa484ae8ec436.webp",
     "index.html": "/suresure/index.html",
     "main.7803a0d7.css.map": "/suresure/static/css/main.7803a0d7.css.map",
-    "main.bc717846.js.map": "/suresure/static/js/main.bc717846.js.map"
+    "main.18a9dfa0.js.map": "/suresure/static/js/main.18a9dfa0.js.map"
   },
   "entrypoints": [
     "static/css/main.7803a0d7.css",
-    "static/js/main.bc717846.js"
+    "static/js/main.18a9dfa0.js"
   ]
 }
