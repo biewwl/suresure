@@ -1,10 +1,9 @@
 {
   "files": {
-    "main.css": "/suresure/static/css/main.7803a0d7.css",
-    "main.js": "/suresure/static/js/main.18a9dfa0.js",
+    "main.css": "/suresure/static/css/main.65f99d63.css",
+    "main.js": "/suresure/static/js/main.3db0c951.js",
     "static/media/betao.jpg": "/suresure/static/media/betao.f2404d2e40ae05ea5013.jpg",
     "static/media/Signature.otf": "/suresure/static/media/Signature.ae71cfbc5e76d2c194b2.otf",
-    "static/media/lottu.png": "/suresure/static/media/lottu.ff5c3aba38b8d2e30aed.png",
     "static/media/bolsadeaposta.png": "/suresure/static/media/bolsadeaposta.ef0d28ad3255efc7fa02.png",
     "static/media/betnacional.png": "/suresure/static/media/betnacional.763950234f70559eb2fa.png",
     "static/media/superbet.webp": "/suresure/static/media/superbet.5d949d1ed32c98f62245.webp",
@@ -13,6 +12,7 @@
     "static/media/cassinobet.png": "/suresure/static/media/cassinobet.bd722bede5337384a948.png",
     "static/media/jogodeouro.png": "/suresure/static/media/jogodeouro.2c7750f2d8c2db830bbc.png",
     "static/media/jogajunto.png": "/suresure/static/media/jogajunto.a2a45b896f653028bf88.png",
+    "static/media/logo.png": "/suresure/static/media/logo.2c42f799e9a55662c6a7.png",
     "static/media/f12bet.jpg": "/suresure/static/media/f12bet.2507650f4b2f8328fe48.jpg",
     "static/media/betfair.png": "/suresure/static/media/betfair.8df1094ea8308de54ffd.png",
     "static/media/goldebet.png": "/suresure/static/media/goldebet.803421f63a320aabcd4e.png",
@@ -35,11 +35,11 @@
     "static/media/reidopitaco.webp": "/suresure/static/media/reidopitaco.d44655c55e58b943c377.webp",
     "static/media/tivobet.webp": "/suresure/static/media/tivobet.deb847faa484ae8ec436.webp",
     "index.html": "/suresure/index.html",
-    "main.7803a0d7.css.map": "/suresure/static/css/main.7803a0d7.css.map",
-    "main.18a9dfa0.js.map": "/suresure/static/js/main.18a9dfa0.js.map"
+    "main.65f99d63.css.map": "/suresure/static/css/main.65f99d63.css.map",
+    "main.3db0c951.js.map": "/suresure/static/js/main.3db0c951.js.map"
   },
   "entrypoints": [
-    "static/css/main.7803a0d7.css",
-    "static/js/main.18a9dfa0.js"
+    "static/css/main.65f99d63.css",
+    "static/js/main.3db0c951.js"
   ]
 }
