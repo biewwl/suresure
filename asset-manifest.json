@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/suresure/static/css/main.9f8d9f58.css",
-    "main.js": "/suresure/static/js/main.72c1edfc.js",
+    "main.css": "/suresure/static/css/main.ee28a6ba.css",
+    "main.js": "/suresure/static/js/main.0d44e863.js",
     "static/media/betao.jpg": "/suresure/static/media/betao.f2404d2e40ae05ea5013.jpg",
     "static/media/Signature.otf": "/suresure/static/media/Signature.ae71cfbc5e76d2c194b2.otf",
     "static/media/bolsadeaposta.png": "/suresure/static/media/bolsadeaposta.ef0d28ad3255efc7fa02.png",
@@ -35,11 +35,11 @@
     "static/media/reidopitaco.webp": "/suresure/static/media/reidopitaco.d44655c55e58b943c377.webp",
     "static/media/tivobet.webp": "/suresure/static/media/tivobet.deb847faa484ae8ec436.webp",
     "index.html": "/suresure/index.html",
-    "main.9f8d9f58.css.map": "/suresure/static/css/main.9f8d9f58.css.map",
-    "main.72c1edfc.js.map": "/suresure/static/js/main.72c1edfc.js.map"
+    "main.ee28a6ba.css.map": "/suresure/static/css/main.ee28a6ba.css.map",
+    "main.0d44e863.js.map": "/suresure/static/js/main.0d44e863.js.map"
   },
   "entrypoints": [
-    "static/css/main.9f8d9f58.css",
-    "static/js/main.72c1edfc.js"
+    "static/css/main.ee28a6ba.css",
+    "static/js/main.0d44e863.js"
   ]
 }
